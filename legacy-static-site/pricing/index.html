@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pricing — Dana AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- AirbnbCereal_W_Bd (design.md §3) is proprietary/unlicensed — intentionally not loaded here;
+       --font-display falls back to generic sans-serif, see design.md §9 -->
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/reveal.css" />
+  <link rel="stylesheet" href="/styles/buttons.css" />
+  <link rel="stylesheet" href="/styles/badge.css" />
+  <link rel="stylesheet" href="/components/navbar/navbar.css" />
+  <link rel="stylesheet" href="/components/pricing/pricing.css" />
+  <link rel="stylesheet" href="/components/faq/faq.css" />
+  <link rel="stylesheet" href="/components/final-cta/final-cta.css" />
+  <link rel="stylesheet" href="/components/footer/footer.css" />
+  <style>
+    * { box-sizing: border-box; }
+    /* See index.html — same sticky-navbar anchor-clipping fix, design.md §9. */
+    html {
+      scroll-padding-top: calc(var(--space-10) + var(--space-1));
+    }
+    @media (max-width: 810px) {
+      html {
+        scroll-padding-top: calc(var(--space-8) + var(--space-1));
+      }
+    }
+    body {
+      margin: 0;
+      background-color: var(--color-bg-base);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+    }
+  </style>
+</head>
+<body>
+  <div data-navbar-slot></div>
+  <div data-pricing-slot></div>
+  <div data-faq-slot></div>
+  <div data-final-cta-slot></div>
+  <div data-footer-slot></div>
+
+  <script>
+    // Same fetch-injection convention used on the homepage (index.html) — component partials
+    // are fetched and injected, then their behavior scripts load after injection completes.
+    Promise.all([
+      fetch('/components/navbar/navbar.html').then((res) => res.text()),
+      fetch('/components/pricing/pricing.html').then((res) => res.text()),
+      fetch('/components/faq/faq.html').then((res) => res.text()),
+      fetch('/components/final-cta/final-cta.html').then((res) => res.text()),
+      fetch('/components/footer/footer.html').then((res) => res.text()),
+    ]).then(([navbarHtml, pricingHtml, faqHtml, finalCtaHtml, footerHtml]) => {
+      document.querySelector('[data-navbar-slot]').outerHTML = navbarHtml;
+      document.querySelector('[data-pricing-slot]').outerHTML = pricingHtml;
+      document.querySelector('[data-faq-slot]').outerHTML = faqHtml;
+      document.querySelector('[data-final-cta-slot]').outerHTML = finalCtaHtml;
+      document.querySelector('[data-footer-slot]').outerHTML = footerHtml;
+
+      const navScript = document.createElement('script');
+      navScript.src = '/components/navbar/navbar.js';
+      document.body.appendChild(navScript);
+
+      const faqScript = document.createElement('script');
+      faqScript.src = '/components/faq/faq.js';
+      document.body.appendChild(faqScript);
+
+      const footerScript = document.createElement('script');
+      footerScript.src = '/components/footer/footer.js';
+      document.body.appendChild(footerScript);
+
+      // Shared scroll-reveal primitive — load once, after every [data-reveal] element
+      // (pricing tier cards, FAQ items, final CTA) is in the DOM.
+      const revealScript = document.createElement('script');
+      revealScript.src = '/styles/scroll-reveal.js';
+      document.body.appendChild(revealScript);
+    });
+  </script>
+</body>
+</html>

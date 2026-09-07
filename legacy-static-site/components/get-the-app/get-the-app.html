@@ -1,0 +1,72 @@
+<!--
+  Dana AI — Get The App (design.md site map item 14's real content — distinct from the generic
+  Final CTA banner already built at components/final-cta/; both exist, neither replaces the other).
+
+  Real content used verbatim: title "GET THE APP", body copy, both store URLs.
+
+  Visual: assets/Get-The_App-Screen.webp — confirmed present (listed assets/ first), self-framed
+  exactly like hero.gif (transparent corners around an opaque phone shape already baked in), so no
+  separate CSS bezel is composited on top of it, same reasoning as the hero build.
+
+  Inspiration image (dark teal-gradient, provided by the user) used for CONTENT/STRUCTURE only —
+  stacked "GET" / "THE APP" headline, body copy, paired store buttons, phone-on-right layout — not
+  its dark gradient styling, consistent with every prior instruction in this project to treat dark
+  reference screenshots as content-only inspiration and follow design.md's light theme for the
+  actual page chrome.
+
+  Button weight: per this build's explicit instruction ("--color-primary fill for whichever button
+  set is styled as primary in this section"), these two store buttons are the primary-styled pair.
+  Per SKILL.md rule 5, this section sits directly above the Final CTA banner (§5.13), which also has
+  its own solid button — since both could appear in the same viewport while scrolling between them,
+  the Final CTA's button has been downgraded to ghost/outline (see final-cta.css) so only one
+  primary-weighted pairing appears per screen height.
+
+  --gradient-glow behind the phone visual: this section functions as a CTA-adjacent, hero-like
+  device showcase (a download-conversion moment), so it's treated as one of the two places §7
+  sanctions the ambient glow (hero + CTA sections) — logged in design.md §9.
+-->
+<section class="get-the-app" id="get-the-app" aria-label="Get the app" data-reveal>
+  <div class="get-the-app__container">
+    <div class="get-the-app__content">
+      <h2 class="get-the-app__headline">
+        <span class="get-the-app__line">GET</span>
+        <span class="get-the-app__line">THE APP</span>
+      </h2>
+      <p class="get-the-app__body">
+        Download Dana AI to access personalized loans, earn rewards, and boost your financial
+        know-how—all in one powerful app.
+      </p>
+      <div class="get-the-app__buttons">
+        <a
+          href="https://play.google.com/store/apps/details?id=com.dana.financial"
+          class="btn btn--primary get-the-app__store-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="get-the-app__store-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3.5v17a1 1 0 0 0 1.5.87l14-8.5a1 1 0 0 0 0-1.74l-14-8.5A1 1 0 0 0 4 3.5Z"/></svg>
+          Google Play
+        </a>
+        <a
+          href="https://s.dana.money/SBC3fw"
+          class="btn btn--primary get-the-app__store-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="get-the-app__store-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.4c0-2.7 2.2-4 2.3-4.1-1.3-1.9-3.2-2.1-3.9-2.2-1.7-.2-3.3 1-4.1 1-.9 0-2.2-1-3.6-1-1.9 0-3.6 1.1-4.6 2.7-2 3.4-.5 8.5 1.4 11.3.9 1.4 2 2.9 3.5 2.9 1.4-.1 1.9-.9 3.6-.9s2.1.9 3.6.9c1.5 0 2.5-1.4 3.4-2.8.7-1 1.3-2.1 1.6-3.3-2.1-.8-3.2-2.8-3.2-4.5ZM14 4.4c.7-.9 1.2-2.1 1.1-3.4-1.1.1-2.4.7-3.1 1.6-.7.8-1.3 2.1-1.1 3.3 1.2.1 2.4-.6 3.1-1.5Z"/></svg>
+          App Store
+        </a>
+      </div>
+    </div>
+
+    <div class="get-the-app__visual">
+      <div class="get-the-app__glow" aria-hidden="true"></div>
+      <img
+        class="get-the-app__screenshot"
+        src="/assets/Get-The_App-Screen.webp"
+        alt="Dana app home screen showing the AI chat assistant, cashflow score, and quick-access shortcuts"
+        width="640"
+        height="1285"
+      />
+    </div>
+  </div>
+</section>

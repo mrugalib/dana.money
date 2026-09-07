@@ -1,0 +1,111 @@
+<!--
+  Dana AI — Footer (design.md §5.14, site map item 15)
+
+  Real content used verbatim: logo, social URLs, all four link columns + their hrefs, contact
+  email, copyright line.
+
+  FLAG: fixed a real, pre-existing bug in assets/dana_logo.svg while building this — it still used
+  the original dark-theme mint/violet gradient and near-white (#F5F7FA) wordmark text from before
+  the light-theme migration, which computed to 1.07:1 contrast against a white background
+  (effectively invisible). Updated to the current --gradient-brand-equivalent chip + black
+  wordmark text + Manrope. This also fixes the navbar's logo, which uses the same file. See
+  design.md §9.
+
+  Social icons: no linkedin.svg/fb.svg/yt.svg (original or updated) exist anywhere in the project
+  (checked assets/ and the whole repo) — hand-drawn as simple solid silhouette marks in one neutral
+  color (--color-text-secondary, brightening on hover), consistent with how every other icon in
+  this build has been hand-drawn when no icon library/asset was available. This is a different
+  treatment from the site's own line-style UI icon family (§7) deliberately — social/brand marks
+  are conventionally simple monochrome silhouettes, a distinct category from internal UI icons, not
+  a violation of "never mix icon families" (that rule governs the site's own icon language).
+
+  Mission statement is original copy grounded in the real team-page positioning (underserved credit
+  access + AI-powered matchmaking in Bangladesh) — not generic boilerplate.
+
+  Newsletter input is new UI (§5.14 asks for it; the live footer has none) — the submit handler
+  only prevents the default page-reload; there is no real newsletter/email backend wired up yet
+  (see footer.js and design.md §9). This isn't styled as broken/disabled the way "Coming Soon"
+  pricing buttons are — it's ordinary new frontend UI built ahead of its backend, not a
+  misrepresented product feature.
+
+  No compliance/security badges row: none of those badge assets exist anywhere in the project.
+  §5.14 marks this row as "if available" — it isn't, so it's omitted rather than filled with
+  fabricated badge icons. Flagged in design.md §9, not painted as an on-page apology (nothing here
+  reads as broken by the row's absence, unlike a testimonial or an empty stat would).
+-->
+<footer class="footer" id="footer">
+  <div class="footer__container">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo" aria-label="Dana AI — home">
+          <img src="/assets/dana_logo.svg" width="120" height="45" alt="Dana AI" />
+        </a>
+        <p class="footer__mission">
+          Bringing AI-powered financial access to people traditional banking overlooks.
+        </p>
+
+        <form class="footer__newsletter" data-newsletter-form>
+          <label for="footer-email" class="footer__newsletter-label">Stay updated</label>
+          <div class="footer__newsletter-row">
+            <input
+              type="email"
+              id="footer-email"
+              name="email"
+              class="footer__newsletter-input"
+              placeholder="Enter your email"
+              required
+            />
+            <button type="submit" class="btn btn--primary footer__newsletter-submit">Subscribe</button>
+          </div>
+        </form>
+
+        <div class="footer__social">
+          <a href="https://linkedin.com/company/danafintech" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Dana on LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.34c0-1.27-.02-2.9-1.77-2.9-1.77 0-2.04 1.38-2.04 2.81V21h-4V9Z"/></svg>
+          </a>
+          <a href="https://facebook.com/danafintech" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Dana on Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14 9.5h2.5V6H14c-2.2 0-4 1.8-4 4v2H8v3.5h2V21h3.5v-5.5H16l.5-3.5h-3V10c0-.28.22-.5.5-.5Z"/></svg>
+          </a>
+          <a href="https://youtube.com/@danafintechltd" class="footer__social-link" target="_blank" rel="noopener noreferrer" aria-label="Dana on YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.6 7.7a2.7 2.7 0 0 0-1.9-1.9C18 5.3 12 5.3 12 5.3s-6 0-7.7.5A2.7 2.7 0 0 0 2.4 7.7 28 28 0 0 0 2 12a28 28 0 0 0 .4 4.3 2.7 2.7 0 0 0 1.9 1.9c1.7.5 7.7.5 7.7.5s6 0 7.7-.5a2.7 2.7 0 0 0 1.9-1.9A28 28 0 0 0 22 12a28 28 0 0 0-.4-4.3ZM10 14.9V9.1L15 12l-5 2.9Z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer__links">
+        <div class="footer__column">
+          <h3 class="footer__column-title">Product</h3>
+          <ul class="footer__column-list">
+            <li><a href="/">Dana AI</a></li>
+            <li><a href="/lab">Dana Labs</a></li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h3 class="footer__column-title">About</h3>
+          <ul class="footer__column-list">
+            <li><a href="/team">Team</a></li>
+            <li><a href="/media">Media</a></li>
+            <li><a href="/career">Career</a></li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h3 class="footer__column-title">Information</h3>
+          <ul class="footer__column-list">
+            <li><a href="/privacy">Privacy Policy</a></li>
+            <li><a href="/terms">Terms &amp; Conditions</a></li>
+          </ul>
+        </div>
+        <div class="footer__column">
+          <h3 class="footer__column-title">Contact</h3>
+          <ul class="footer__column-list">
+            <li><a href="mailto:hello@dana.money">hello@dana.money</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copyright">© 2026 Dana. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

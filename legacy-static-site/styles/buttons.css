@@ -1,0 +1,84 @@
+/*
+  Dana AI — Shared button primitives (design.md §5.2)
+  Centralized here (not duplicated per-component) so every section that needs a CTA
+  reuses the exact same structure — see SKILL.md rule 3.
+    .btn--primary   solid --color-primary (dark green) fill, --on-primary (white) text, 9999px
+                    radius, 16/32 padding, hover glow + scale 1.02. Max one per viewport section.
+    .btn--secondary ghost: 1px border-subtle, transparent fill, plus --shadow-card as a resting
+                    depth cue (border-subtle alone is very faint against white, see §9). Border
+                    brightens to border-glow on hover.
+    .btn:disabled   "Coming Soon" / not-yet-purchasable state (pricing §5.11) — muted, no hover
+                    response, native `disabled` attribute (genuinely non-interactive, not just
+                    styled to look inert) so it's never mistaken for a live action.
+*/
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-pill);
+  padding: 16px 32px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--duration-hover) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out),
+    border-color var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out);
+}
+
+.btn--primary {
+  color: var(--on-primary);
+  background-color: var(--color-primary);
+  border: none;
+}
+
+.btn--primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 24px var(--color-border-glow);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
+}
+
+.btn--secondary {
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  /* border-subtle alone flattens to ~1.2:1 against white — add the soft card shadow as a
+     resting-state depth cue, see design.md §9 */
+  box-shadow: var(--shadow-card);
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-border-glow);
+}
+
+.btn--secondary:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition-duration: 1ms;
+  }
+
+  .btn--primary:hover {
+    transform: none;
+  }
+}

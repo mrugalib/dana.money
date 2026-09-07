@@ -1,0 +1,143 @@
+/*
+  Dana AI — FAQ Accordion styles.
+  Spec traced to design.md:
+    §5.12 FAQ    — single-open accordion, ~250ms ease-in-out height transition, plus-to-x icon
+                   rotate 45deg. Must include finance-specific trust questions (data privacy,
+                   credit/loan eligibility, security standard, cashflow-score meaning) — see the
+                   4 pending items in faq.html.
+    §5.3 Badge   — eyebrow pill reused verbatim (styles/badge.css).
+    §4 Spacing   — 120px/72px section rhythm.
+    §6 Motion    — accordion uses --duration-accordion (250ms) with literal ease-in-out — §6
+                   explicitly keeps this distinct from the base `ease` easing used everywhere else.
+
+  Pending items (`.faq__item--pending`) get no different visual treatment from real Q&As — the
+  question itself reads as a normal, legitimate question either way; only the ANSWER content
+  (`.faq__pending-note`) signals it's unresolved, once expanded. Unlike an empty/missing answer
+  (which would look like a bug), a brief honest note is the right call here.
+*/
+
+.faq {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.faq__container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq__headline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.faq__list {
+  margin-top: var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.faq__question {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.faq__question:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.faq__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  transition: transform var(--duration-accordion) ease-in-out;
+}
+
+.faq__icon::before,
+.faq__icon::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--color-text-primary);
+  transform: translate(-50%, -50%);
+}
+
+.faq__icon::before {
+  width: 14px;
+  height: 2px;
+}
+
+.faq__icon::after {
+  width: 2px;
+  height: 14px;
+}
+
+.faq__question[aria-expanded="true"] .faq__icon {
+  transform: rotate(45deg);
+}
+
+.faq__answer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--duration-accordion) ease-in-out;
+}
+
+.faq__answer.is-open {
+  max-height: 300px;
+}
+
+.faq__answer p {
+  margin: 0 0 var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+  max-width: 640px;
+}
+
+.faq__pending-note {
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+@media (max-width: 810px) {
+  .faq {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .faq__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__icon,
+  .faq__answer {
+    transition-duration: 1ms;
+  }
+}

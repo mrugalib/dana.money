@@ -1,0 +1,41 @@
+<!--
+  Dana AI — Hero (design.md §5.4)
+  Two-column desktop (text left, product visual right) collapsing to stacked mobile.
+  Product visual = real Dana app screenshot (hero.gif). Note: the gif already has its
+  phone bezel baked into the pixels (transparent corners around a rendered frame), so
+  no separate frame asset is composited on top of it — see build note in chat for why.
+-->
+<section class="hero" id="hero" aria-label="Hero">
+  <div class="hero__container">
+    <div class="hero__content">
+      <span class="pill-badge">
+        <span class="pill-badge__dot" aria-hidden="true"></span>
+        Introducing Dana
+      </span>
+
+      <h1 class="hero__headline">
+        <span class="hero__line hero__line--secondary">Your smart</span>
+        <span class="hero__line hero__line--accent">Financial AI</span>
+        <span class="hero__line hero__line--secondary">Assistant.</span>
+      </h1>
+
+      <div class="hero__actions">
+        <a href="#get-dana-ai" class="btn btn--primary">Get Dana AI</a>
+        <a href="#how-it-works" class="btn btn--secondary">See how it works</a>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-hero-visual>
+      <div class="hero__glow" aria-hidden="true"></div>
+      <!-- Option A (default): real product recording -->
+      <img
+        src="/assets/hero.gif"
+        alt="Dana AI chat assistant interface, showing a conversational financial advisor screen on a phone"
+        class="hero__device"
+        width="500"
+        height="1021"
+        data-hero-visual-gif
+      />
+    </div>
+  </div>
+</section>

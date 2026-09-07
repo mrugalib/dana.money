@@ -1,0 +1,441 @@
+/*
+  Dana AI — Navbar component styles.
+  Spec traced to design.md:
+    §5.1 Navbar   — sticky, transparent -> glass fill (--color-bg-glass) + blur after 40px scroll.
+                    Logo left, links centered in the space between logo and CTA, single primary
+                    CTA right. Collapses to hamburger at 1200px (--breakpoint-desktop, design.md
+                    §4), not the narrower 810px tablet tier — this nav's 6 links + About dropdown
+                    genuinely need more room than 810px allows. See design.md §9.
+                    Mobile: hamburger -> full-screen glass menu (About collapses into it too).
+    §5.2 Buttons  — primary: solid --color-primary (dark green) fill, --on-primary (white) text,
+                    9999px radius, 16px/32px padding, hover glow (0 0 24px var(--color-border-glow))
+                    + scale 1.02.
+    §6  Motion    — hover/reveal easing & durations reused from documented tokens (no new values).
+*/
+
+/* position: fixed (not sticky) is deliberate, see design.md §9 — with `sticky`, the navbar still
+   reserves its own 80px/64px box in normal document flow, so at scroll position 0 "transparent"
+   was revealing the plain white <body> background behind it, not the Hero, since the Hero (a
+   separate, non-overlapping element below the navbar in the DOM) hadn't scrolled up underneath it
+   yet. `fixed` removes the navbar from flow entirely so it floats over whatever is at the top of
+   the page from the very first pixel — every section's existing 120px/72px top padding (design.md
+   §4's standard section rhythm) already exceeds the navbar's own 80px/64px height, so no page had
+   to add compensating padding for this change; content already had enough built-in clearance. */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color var(--duration-reveal) var(--ease-out),
+    border-color var(--duration-reveal) var(--ease-out),
+    backdrop-filter var(--duration-reveal) var(--ease-out);
+}
+
+/* Glass state — applied once scrollY > 40px */
+.navbar.is-scrolled {
+  background-color: var(--color-bg-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom-color: var(--color-border-subtle);
+}
+
+/* ---- "On dark section" state (System Extension, design.md §9) ----
+   Applied while the navbar overlaps any section opted in via `data-navbar-dark` (see Navbar.tsx's
+   shared IntersectionObserver) — the homepage Hero's dark-green background image, and the Dana Lab
+   page's "Let's Connect With an Expert" CTA banner (--gradient-brand). The default palette below
+   (dark-green links/CTA, --color-bg-glass' black-based tint) was calibrated for the white page
+   background every other section uses — sampled contrast against the hero image was ~1.15:1.
+   Every other page/section is unaffected. */
+.navbar--on-dark .navbar__link {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.navbar--on-dark .navbar__link:hover {
+  color: var(--on-primary);
+}
+
+.navbar--on-dark .navbar__chevron {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.navbar--on-dark .navbar__hamburger span {
+  background-color: var(--on-primary);
+}
+
+/* Same lime-fill + dark-text treatment as Hero's own CTA (Hero.css .hero__cta-primary) — the
+   default dark-green .btn--primary fill would nearly disappear against the hero's own dark-green
+   background, exactly like the navbar links above. */
+.navbar--on-dark .navbar__cta {
+  background-color: var(--color-surface-highlight);
+  color: var(--color-text-primary);
+}
+
+.navbar--on-dark .navbar__cta:hover {
+  box-shadow: 0 0 24px rgba(185, 232, 72, 0.45);
+}
+
+/* Stay fully transparent — no glass fill, no blur — for as long as the navbar overlaps the hero,
+   regardless of scroll position within it. An earlier version gave this state its own white-based
+   glass tint once scrolled past 40px, but that still put a visible fill between the navbar and the
+   hero image; the user explicitly wants zero background here, matching the very top of the page,
+   with the transition to the normal glass system happening automatically and only once the navbar
+   has fully cleared the hero (i.e. the instant `.navbar--on-dark` is removed by the
+   IntersectionObserver in Navbar.tsx) — at that point this rule no longer applies and `.is-scrolled`
+   alone (above) takes over exactly as it always has.
+   !important here is deliberate, not a shortcut: `.navbar--on-dark.is-scrolled` and `.navbar.is-
+   scrolled` have identical specificity (two classes each), and this project splits CSS one file
+   per component rather than one global stylesheet, so relying on "my rule is textually later in
+   this file" to win a same-specificity tie is fragile against how a bundler orders separate CSS
+   modules — this state must always win when active, so it's asserted outright. See design.md §9. */
+.navbar--on-dark.is-scrolled {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom-color: transparent !important;
+}
+
+.navbar__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  height: var(--space-10); /* 80px desktop */
+  padding: 0 var(--gutter-desktop);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+/* No chip/backdrop in either state — two real logo files are swapped by JS instead (Navbar.tsx):
+   the original white-wordmark `dana_logo.svg` while over the hero, and `dana_logo_dark.svg` (the
+   same real file with only the wordmark recolored black, icon untouched) everywhere else. Each
+   already has the correct contrast for its own background, so no box behind either is needed —
+   this supersedes the earlier dark-chip-behind-a-white-wordmark stopgap (design.md §9, "Real Dana
+   logo swapped in" / the reverted black-PNG attempt), which only existed because a usable
+   dark-text logo file didn't exist yet. */
+.navbar__logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 8px 12px;
+}
+
+.navbar__logo img {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+
+.navbar__nav {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar__links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.navbar__link {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) 0;
+  transition: color var(--duration-hover) ease-out;
+}
+
+.navbar__link:hover {
+  color: var(--color-text-primary);
+}
+
+.navbar__link:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 4px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---- About dropdown (desktop) ---- */
+.navbar__dropdown {
+  position: relative;
+  list-style: none;
+}
+
+.navbar__chevron {
+  transition: transform var(--duration-hover) ease-out;
+  color: var(--color-text-muted);
+}
+
+.navbar__dropdown-trigger[aria-expanded="true"] .navbar__chevron {
+  transform: rotate(180deg);
+}
+
+.navbar__dropdown-menu {
+  position: absolute;
+  top: calc(100% + var(--space-2));
+  left: 50%;
+  transform: translate(-50%, -6px);
+  list-style: none;
+  margin: 0;
+  min-width: 168px;
+  padding: var(--space-1);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevated);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity var(--duration-accordion) ease-in-out,
+    transform var(--duration-accordion) ease-in-out,
+    visibility 0s linear var(--duration-accordion);
+}
+
+.navbar__dropdown-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+  transition:
+    opacity var(--duration-accordion) ease-in-out,
+    transform var(--duration-accordion) ease-in-out,
+    visibility 0s linear 0s;
+}
+
+.navbar__dropdown-link {
+  display: block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  /* bg-elevated is a neutral near-white card surface — text-secondary works directly on it (11.9:1) */
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-hover) ease-out, background-color var(--duration-hover) ease-out;
+}
+
+.navbar__dropdown-link:hover {
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-glass);
+}
+
+.navbar__dropdown-link:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: -2px;
+}
+
+/* Primary CTA styling itself lives in the shared styles/buttons.css (design.md §5.2) —
+   this file only adds nav-specific layout overrides. */
+.navbar__cta {
+  flex-shrink: 0;
+}
+
+/* ---- Hamburger (mobile only) ---- */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.navbar__hamburger span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--color-text-primary);
+  border-radius: var(--radius-pill);
+  transition: transform var(--duration-hover) ease-out, opacity var(--duration-hover) ease-out;
+}
+
+.navbar__hamburger:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.navbar__hamburger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar__hamburger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+.navbar__hamburger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ---- Mobile full-screen glass menu ---- */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-6);
+  padding: var(--space-10) var(--gutter-mobile) var(--space-6);
+  background-color: color-mix(in srgb, var(--color-bg-base) 90%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity var(--duration-reveal) var(--ease-out), transform var(--duration-reveal) var(--ease-out);
+  overflow-y: auto;
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mobile-menu__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--text-display-md-mobile);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background: none;
+  border: none;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+  cursor: pointer;
+}
+
+.mobile-menu__group-trigger[aria-expanded="true"] .navbar__chevron {
+  transform: rotate(180deg);
+}
+
+.mobile-menu__submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--duration-accordion) ease-in-out;
+}
+
+.mobile-menu__submenu.is-open {
+  max-height: 240px;
+}
+
+.mobile-menu__sublink {
+  display: block;
+  padding: var(--space-2) 0 var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md-mobile);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.mobile-menu__sublink:hover,
+.mobile-menu__sublink:focus-visible {
+  color: var(--color-text-primary);
+}
+
+.mobile-menu__cta {
+  width: 100%;
+  margin-top: var(--space-2);
+}
+
+/* ---- Breakpoint: collapse to hamburger/full-screen menu ----
+   Uses the 1200px tier (design.md §4 --breakpoint-desktop), not the 810px tablet tier used
+   elsewhere in this file for bar-height/padding. Measured: at 1024 (32px link gaps) the full
+   logo+6-links+About+CTA row needs ~1025-1070px of content width, which only clears the 810px
+   tablet breakpoint's available inner width by a hair and actively overflows below ~1010px —
+   a real cramped/overlapping zone in the 811-1010px range, not a cosmetic nit. Collapsing at
+   1200px instead removes that dead zone entirely. See design.md §9. */
+@media (max-width: 1200px) {
+  .navbar__nav,
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+    margin-left: auto;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}
+
+/* Bar-height/padding shrink stays on the narrower 810px tablet tier — unrelated to the
+   nav-item-count overflow issue above, this is purely about compact bar height on small screens. */
+@media (max-width: 810px) {
+  .navbar__container {
+    height: var(--space-8); /* 64px mobile */
+    padding: 0 var(--gutter-mobile);
+  }
+
+  .navbar__logo img {
+    height: 28px;
+  }
+}
+
+/* ---- Reduced motion: opacity fades only, no transform/scale (design.md §6) ---- */
+@media (prefers-reduced-motion: reduce) {
+  .navbar,
+  .navbar__dropdown-menu,
+  .navbar__chevron,
+  .navbar__hamburger span,
+  .mobile-menu,
+  .mobile-menu__submenu {
+    transition-duration: 1ms;
+  }
+
+  .navbar__dropdown-menu,
+  .mobile-menu {
+    transform: none;
+  }
+
+  .navbar__dropdown-trigger[aria-expanded="true"] .navbar__chevron,
+  .mobile-menu__group-trigger[aria-expanded="true"] .navbar__chevron {
+    transform: none;
+  }
+
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(1),
+  .navbar__hamburger[aria-expanded="true"] span:nth-child(3) {
+    transform: none;
+  }
+}

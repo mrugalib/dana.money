@@ -1,0 +1,243 @@
+/*
+  Dana AI — /career page styles.
+  Follows established section/card conventions (FeatureGrid, DanaLabCapabilities):
+    §3 Typography — H1 --text-display-lg, card title --text-body-lg, description --text-body-md.
+    §4 Spacing    — 120px/72px section rhythm, --radius-md cards, --shadow-card elevation.
+    §6 Motion     — scroll-triggered reveal via the shared [data-reveal] primitive, staggered
+                    80ms/card.
+
+  career-notice is a visually distinct second section (dashed border, no shadow) rather than just
+  another card in the grid above — it's a status flag ("not hiring right now"), not a benefit, and
+  should read as its own honest caveat, same precedent as ComingSoon.css / PricingTiers' disabled
+  "Coming Soon" buttons (design.md §9: visibly flag pending/unavailable states, don't bury them).
+*/
+
+.career-info {
+  padding: var(--space-15) var(--gutter-desktop) var(--space-9);
+}
+
+.career-info__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.career-info__intro-row {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.career-info__intro {
+  grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.career-info__visual {
+  grid-column: 8 / span 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.career-info__gif {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  object-fit: contain;
+}
+
+.career-info__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.career-info__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.career-info__grid {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.career-info__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5) var(--space-3);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-hover) ease, box-shadow var(--duration-hover) ease,
+    border-color var(--duration-hover) ease;
+}
+
+.career-info__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.career-info__card--blue:hover {
+  border-color: var(--color-accent-primary);
+}
+
+.career-info__card--green:hover {
+  border-color: var(--color-accent-secondary);
+}
+
+.career-info__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+}
+
+.career-info__icon-wrap--blue {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 10%, transparent);
+}
+
+.career-info__icon-wrap--green {
+  background-color: color-mix(in srgb, var(--color-accent-secondary) 14%, transparent);
+}
+
+.career-info__icon {
+  width: 24px;
+  height: 24px;
+}
+
+.career-info__icon--blue {
+  color: var(--color-accent-primary);
+}
+
+.career-info__icon--green {
+  color: var(--color-accent-secondary);
+}
+
+.career-info__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.career-info__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Hiring status notice ---- */
+.career-notice {
+  padding: var(--space-9) var(--gutter-desktop) var(--space-15);
+}
+
+.career-notice__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  border: 1.5px dashed var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.career-notice__heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.career-notice__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+}
+
+/* ---- Tablet: 2-column benefit grid, narrower visual ---- */
+@media (max-width: 1200px) {
+  .career-info__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .career-info__gif {
+    max-width: 200px;
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 810px) {
+  .career-info {
+    padding: var(--space-9) var(--gutter-mobile) var(--space-6);
+  }
+
+  .career-info__intro-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  .career-info__intro,
+  .career-info__visual {
+    grid-column: 1 / -1;
+  }
+
+  .career-info__gif {
+    max-width: 180px;
+  }
+
+  .career-info__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .career-info__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+    margin-top: var(--space-4);
+  }
+
+  .career-notice {
+    padding: var(--space-6) var(--gutter-mobile) var(--space-9);
+  }
+
+  .career-notice__container {
+    padding: var(--space-4);
+  }
+
+  .career-notice__heading {
+    font-size: var(--text-display-md-mobile);
+  }
+}

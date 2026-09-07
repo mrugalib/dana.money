@@ -1,0 +1,31 @@
+/*
+  Dana AI — Eyebrow / Badge Pill (design.md §5.3)
+  "Sits above every major section headline — this is a signature repeated motif,
+  must appear identically styled every time." Centralized so later sections reuse
+  this exact structure instead of a near-duplicate.
+*/
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 8px 16px;
+  background-color: var(--color-bg-glass);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.pill-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  /* lime is restricted to badges/chips (--color-surface-highlight) — accent-primary is blue now */
+  background-color: var(--color-surface-highlight);
+  flex-shrink: 0;
+}

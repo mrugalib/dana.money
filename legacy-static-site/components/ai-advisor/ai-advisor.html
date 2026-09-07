@@ -1,0 +1,78 @@
+<!--
+  Dana AI — AI Advisor feature block (design.md §8, site map item 5; layout pattern from §5.7)
+  Elevates Dana's existing "chat with Dana" content. Proof block #1 in the alternating-proof
+  sequence: visual-LEFT / text-RIGHT (deliberately opposite the hero's text-left/visual-right, so
+  the page doesn't repeat the same layout twice in a row). Next proof block (Rewards/Learn & Earn)
+  should alternate to text-left/visual-right.
+
+  Real content used verbatim: title "AI Financial Advisor", subhead as given.
+
+  Visual: 4 real in-app screenshots (assets/Picture1-4.webp) inside a CSS-drawn phone bezel —
+  hand_phone_frame.png still hasn't been provided, so this reuses the exact bezel/notch technique
+  already established in hero-visual-chatbubble.css's Option B mock, rather than blocking again or
+  inventing a third frame approach. Dark chat UI kept exactly as-is (real, unaltered product
+  screenshots — see design.md §9 for the full reasoning).
+
+  Desktop (>810px, motion allowed): pinned scroll-scrub — the section locks in the viewport and
+  the 4 screens advance one by one as the user keeps scrolling, driven by scroll position (see
+  ai-advisor.js). Mobile and prefers-reduced-motion: falls back to a simple auto-cycling cross-fade
+  (same as the previous build) — hijacking scroll for 4 screens is genuinely disorienting on small
+  viewports and is exactly the "non-essential motion" prefers-reduced-motion should disable.
+-->
+<section class="ai-advisor" id="ai-advisor" aria-label="AI Financial Advisor">
+  <div class="ai-advisor__track" data-scrub-track>
+    <div class="ai-advisor__stage" data-scrub-stage data-reveal>
+      <div class="ai-advisor__container">
+        <div class="ai-advisor__visual">
+          <div class="ai-advisor__phone" data-phone-cycle>
+            <div class="ai-advisor__notch" aria-hidden="true"></div>
+            <img
+              class="ai-advisor__screenshot is-active"
+              src="/assets/Picture1.webp"
+              alt="Dana chat screen: 'Hello! I'm Dana' with quick-start options for cashflow score, loans, and credit cards"
+              data-screen="1"
+            />
+            <img
+              class="ai-advisor__screenshot"
+              src="/assets/Picture2.webp"
+              alt="Matched relationship-officer profiles with ratings and a connect option"
+              data-screen="2"
+              aria-hidden="true"
+            />
+            <img
+              class="ai-advisor__screenshot"
+              src="/assets/Picture3.webp"
+              alt="In-app financial videos and blog articles feed"
+              data-screen="3"
+              aria-hidden="true"
+            />
+            <img
+              class="ai-advisor__screenshot"
+              src="/assets/Picture4.webp"
+              alt="Community forum with financial-advice discussions"
+              data-screen="4"
+              aria-hidden="true"
+            />
+          </div>
+          <div class="ai-advisor__dots" role="tablist" aria-label="AI Advisor screen preview">
+            <button type="button" class="ai-advisor__dot is-active" data-dot="1" role="tab" aria-selected="true" aria-label="Show screen 1 of 4"></button>
+            <button type="button" class="ai-advisor__dot" data-dot="2" role="tab" aria-selected="false" aria-label="Show screen 2 of 4"></button>
+            <button type="button" class="ai-advisor__dot" data-dot="3" role="tab" aria-selected="false" aria-label="Show screen 3 of 4"></button>
+            <button type="button" class="ai-advisor__dot" data-dot="4" role="tab" aria-selected="false" aria-label="Show screen 4 of 4"></button>
+          </div>
+        </div>
+
+        <div class="ai-advisor__content">
+          <span class="pill-badge">
+            <span class="pill-badge__dot" aria-hidden="true"></span>
+            Meet Dana
+          </span>
+          <h2 class="ai-advisor__headline">AI Financial Advisor</h2>
+          <p class="ai-advisor__subhead">
+            Chat with Dana to understand your finances and unlock smarter, faster money moves.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

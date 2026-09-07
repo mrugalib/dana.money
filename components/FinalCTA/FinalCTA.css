@@ -1,0 +1,98 @@
+/*
+  Dana AI — Final CTA Banner styles.
+  Spec traced to design.md:
+    §5.13 Final CTA — full-width --color-primary (dark green) background, --on-primary (white)
+                      headline, centered, --gradient-glow behind it, single CTA.
+    Button weight    — DOWNGRADED to ghost/outline (was a solid inverted-white fill) per SKILL.md
+                      rule 5: Get The App (§8 item 14) now sits directly above this banner with its
+                      own solid --color-primary buttons, and both could appear in the same viewport
+                      while scrolling between them — only one primary-weighted pairing per screen
+                      height. Ghost styling here uses --color-border-subtle exactly as instructed,
+                      but flagging: that's a black-based border calibrated for light backgrounds:
+                      against this banner's dark-green background it will read as close to
+                      invisible. Text stays --on-primary (white) for legibility regardless.
+    §7 Imagery      — --gradient-glow is explicitly sanctioned for hero AND CTA sections — this is
+                      one of exactly two places in the whole system that gets the ambient glow.
+    §4 Spacing      — 120px/72px section rhythm.
+    §6 Motion       — scroll-reveal via the shared [data-reveal] primitive, single block (matches
+                      problem-solution's approach — one reveal unit, nothing to stagger).
+*/
+
+/* Background image (public/assets/final-cta-bg.webp, user-supplied) replaces the old solid
+   --color-primary fill + separate --gradient-glow div — the image already has its own radial
+   glow, decorative concentric arcs, and a faint grid pattern baked in, so a second programmatic
+   glow layered on top would be redundant (same reasoning as Hero.css's background swap, see
+   design.md §9). background-color stays as a fallback in case the image is slow to load or fails
+   — it's the same dark-green tone as the image's own edges, so there's no flash of a mismatched
+   color either way. */
+.final-cta {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-15) var(--gutter-desktop);
+  background-color: var(--color-primary);
+  background-image: url("/assets/final-cta-bg.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-align: center;
+}
+
+.final-cta__container {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.final-cta__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--on-primary);
+}
+
+.final-cta__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--on-primary);
+  opacity: 0.85;
+}
+
+/* Ghost/outline — downgraded from a solid inverted fill, see the header comment */
+.final-cta__cta {
+  margin-top: var(--space-2);
+  background-color: transparent;
+  color: var(--on-primary);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.final-cta__cta:hover {
+  border-color: var(--color-border-glow);
+}
+
+.final-cta__cta:focus-visible {
+  outline: 2px solid var(--on-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 810px) {
+  .final-cta {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .final-cta__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+}

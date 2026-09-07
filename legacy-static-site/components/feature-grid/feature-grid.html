@@ -1,0 +1,92 @@
+<!--
+  Dana AI — Feature Grid (design.md §8 site map item 6; component spec §5.6)
+
+  FLAG: the live site has no dedicated feature-grid section with individual cards yet. Per
+  SKILL.md rule 7, this design.md-mandated structural section is still being built — not skipped
+  just because it's absent from the current live site. Every claim below is derived from confirmed
+  Dana product facts (team-page description, homepage context: giftbox.png/spinwheel.png for
+  rewards, the "Let Experts Guide You" section for expert guidance) — none of this copy is pulled
+  from an existing feature-grid, because none currently exists in this form.
+
+  Icons: no icon library is loaded in this static build, so all 4 are hand-drawn inline SVGs to one
+  consistent stroke recipe (24x24 viewBox, 1.75px stroke, round caps/joins, no fill) — a single
+  cohesive family per §7's "never mix icon families" rule, not 4 icons from different sources.
+  Colors alternate blue/dark-green per card (the two documented accent hues, §2).
+
+  Structure note: each grid slot is a `.feature-grid__item[data-reveal]` wrapper around the visual
+  `.feature-grid__card`. Kept as two elements, not one, because the shared reveal primitive and the
+  hover-lift both need to animate `transform` on the same property but with different durations/
+  triggers — putting both on one element means whichever rule's `transition` shorthand wins the
+  cascade silently discards the other's, killing one animation. Two nested elements avoid the
+  collision entirely (see design.md §9).
+-->
+<section class="feature-grid" id="feature-grid" aria-label="What Dana does">
+  <div class="feature-grid__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      What Dana does
+    </span>
+    <h2 class="feature-grid__headline">Everything Dana does for your money</h2>
+
+    <div class="feature-grid__grid">
+      <div class="feature-grid__item" data-reveal>
+        <div class="feature-grid__card">
+          <svg class="feature-grid__icon feature-grid__icon--blue" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M3 17l5-5 4 4 8-9" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15 7h5v5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="feature-grid__title">Cashflow Score</h3>
+          <p class="feature-grid__description">
+            An instant affordability read from your real transaction history and digital footprint —
+            no paperwork, no waiting.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-grid__item" data-reveal>
+        <div class="feature-grid__card">
+          <svg class="feature-grid__icon feature-grid__icon--green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M3 10h18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M7 15h4" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
+          <h3 class="feature-grid__title">Personalized Loans</h3>
+          <p class="feature-grid__description">
+            Matched to credit and financial products that actually fit your situation, not a
+            one-size-fits-all offer.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-grid__item" data-reveal>
+        <div class="feature-grid__card">
+          <svg class="feature-grid__icon feature-grid__icon--blue" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="9" width="18" height="12" rx="1.5" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M3 13h18" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M12 9v12" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M12 9c-1.5-3-6-3.5-6-.5 0 1.7 2.5 2 6 .5Z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+            <path d="M12 9c1.5-3 6-3.5 6-.5 0 1.7-2.5 2-6 .5Z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="feature-grid__title">Learn &amp; Earn Rewards</h3>
+          <p class="feature-grid__description">
+            Build financial literacy and earn real cashback for it — gamified, not gimmicky.
+          </p>
+        </div>
+      </div>
+
+      <div class="feature-grid__item" data-reveal>
+        <div class="feature-grid__card">
+          <svg class="feature-grid__icon feature-grid__icon--green" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.25" stroke="currentColor" stroke-width="1.75"/>
+            <path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+            <path d="M9.5 15.5l1.75 1.75L15 13.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3 class="feature-grid__title">Expert Guidance</h3>
+          <p class="feature-grid__description">
+            Direct access to trusted financial advisors whenever you need a second opinion.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

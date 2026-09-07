@@ -1,0 +1,47 @@
+<!--
+  Dana AI — Stat / Metrics Section (design.md §8 site map item 10; component spec §5.9)
+  Marked mandatory, not optional, in design.md — built even though no real public numbers exist
+  yet for any of these four metrics on the live site.
+
+  FIGURES PENDING: every value below is a placeholder zero, not an invented number. Per SKILL.md
+  rule 4 and the anti-patterns list, real figures are not fabricated. The single source of truth
+  for these values is the STATS_CONFIG object at the top of metrics.js — updating real numbers
+  later is a one-line edit per stat there, not a rebuild or an HTML edit. See design.md §9.
+
+  No title was given for this section — design.md §5.9's own text references Finorix's "Key
+  metrics behind our success" framing, but that's a reference site's own copy, not Dana's, so it
+  isn't copied verbatim. Original section framing instead: eyebrow "Our Impact", headline
+  "The Numbers Behind Dana".
+
+  Labels (Active users / Cashflow scores generated / Loans facilitated / Average rating) are the
+  four categories design.md §5.9 explicitly names — real, not fabricated. Only the numeric values
+  are unknown.
+-->
+<section class="metrics" id="metrics" aria-label="Dana's impact">
+  <div class="metrics__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      Our Impact
+    </span>
+    <h2 class="metrics__headline">The Numbers Behind Dana</h2>
+
+    <div class="metrics__grid">
+      <div class="metrics__item" data-reveal>
+        <div class="metrics__value" data-counter data-key="users">0</div>
+        <div class="metrics__label">Active users</div>
+      </div>
+      <div class="metrics__item" data-reveal>
+        <div class="metrics__value" data-counter data-key="cashflow-scores">0</div>
+        <div class="metrics__label">Cashflow scores generated</div>
+      </div>
+      <div class="metrics__item" data-reveal>
+        <div class="metrics__value" data-counter data-key="loans">0</div>
+        <div class="metrics__label">Loans facilitated</div>
+      </div>
+      <div class="metrics__item" data-reveal>
+        <div class="metrics__value" data-counter data-key="rating">0</div>
+        <div class="metrics__label">Average rating</div>
+      </div>
+    </div>
+  </div>
+</section>

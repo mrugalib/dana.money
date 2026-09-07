@@ -1,0 +1,89 @@
+/*
+  Dana AI — Trust Bar styles (stat-strip fallback, design.md §5.5).
+  Spec traced to design.md:
+    §5.5 Trust Bar — stat-strip fallback since Dana has no consumer partner/press logos yet.
+    §2 Color      — light theme: --color-bg-elevated (#F8F8F8) card fill, no dark-theme glow.
+    §4 Spacing    — 120px/72px section rhythm, --radius-md (16px, "standard cards"), --shadow-card
+                    for elevation (not border-glow — that's reserved for interactive controls).
+    §3 Typography — value uses --text-display-md (compact stat, not a full H2); label uses
+                    --text-body-md. Hierarchy comes from size/weight, not color (both use
+                    --color-text-secondary) — same pattern as the feature-grid spec (§5.6).
+    §6 Motion     — scroll-triggered reveal via the shared styles/reveal.css + scroll-reveal.js
+                    primitive ([data-reveal] on each card), staggered 80-120ms per card below.
+
+  Pending-state treatment: a 2px DASHED border (vs. the solid border every real card elsewhere
+  uses) is the deliberate visual signal that these four values are placeholders, not real data —
+  see the build summary for what needs to happen before this ships.
+*/
+
+.trust-bar {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.trust-bar__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.trust-bar__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.trust-bar__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-3);
+  background-color: var(--color-bg-elevated);
+  border: 2px dashed var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* base [data-reveal] opacity/transform/transition rules live in styles/reveal.css — only the
+   per-card stagger delay is component-specific */
+.trust-bar__card:nth-child(1) { transition-delay: 0ms; }
+.trust-bar__card:nth-child(2) { transition-delay: 100ms; }
+.trust-bar__card:nth-child(3) { transition-delay: 200ms; }
+.trust-bar__card:nth-child(4) { transition-delay: 300ms; }
+
+.trust-bar__value {
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-secondary);
+}
+
+.trust-bar__label {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Tablet: 2-column grid ----
+   4-col at tablet widths left only ~105px of text width per card (measured against an 811px
+   viewport), forcing labels like "Cashflow scores generated" to wrap across many cramped lines.
+   2-col gives each card ~280px, matching the roominess of the desktop column. See design.md §9. */
+@media (max-width: 1200px) {
+  .trust-bar__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 810px) {
+  .trust-bar {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .trust-bar__value {
+    font-size: var(--text-display-md-mobile);
+  }
+}

@@ -1,0 +1,91 @@
+/*
+  Dana AI — Design Tokens
+  1:1 mirror of design.md sections 2 (Color), 3 (Typography), 4 (Spacing & Grid), 6 (Motion).
+  Do not hardcode values matching these in component CSS — reference the variable instead,
+  so a global change (e.g. adjusting the accent green) only requires editing this file.
+*/
+
+:root {
+  /* ---- 2. Color System (verified Finorix export — full light theme, see design.md §9) ---- */
+  --color-bg-base:        #FFFFFF;
+  --color-bg-elevated:    #F8F8F8; /* neutral card surface, not a bold color block */
+  --color-bg-glass:       rgba(0, 0, 0, 0.04);
+  --color-border-subtle:  rgba(0, 0, 0, 0.08);
+  --color-border-glow:    rgba(0, 0, 238, 0.35); /* interactive states only (hover/focus) */
+
+  --color-text-primary:   #000000;
+  --color-text-secondary: #1B3A1C; /* solid dark green, not a translucent tint */
+  --color-text-muted:     rgba(0, 0, 0, 0.42); /* fails AA at normal sizes — icons/decoration only */
+
+  --color-accent-primary:   #0000EE; /* electric blue */
+  --color-accent-secondary: #1B3A1C; /* dark green */
+
+  --color-primary: #1B3A1C; /* solid brand fill: buttons, final-CTA banner, other bold blocks */
+  --on-primary:    #FFFFFF; /* required text color for anything filled with --color-primary */
+
+  --color-surface-highlight: #B9E848; /* lime — badges/eyebrow pills/chips ONLY, never general surfaces */
+
+  --gradient-brand: linear-gradient(135deg, #0000EE 0%, #1B3A1C 100%);
+  --gradient-glow:  radial-gradient(circle at 50% 0%, rgba(0, 0, 238, 0.12), transparent 60%);
+
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-danger:  #F87171;
+
+  /* ---- 3. Typography ---- */
+  --font-display: 'AirbnbCereal_W_Bd', sans-serif; /* proprietary, no licensed file — falls back to sans-serif, see §9 */
+  --font-body: 'Manrope', sans-serif;
+
+  --text-display-xl: 52px;
+  --text-display-xl-mobile: 32px;
+  --text-display-lg: 42px;
+  --text-display-lg-mobile: 28px;
+  --text-display-md: 28px;
+  --text-display-md-mobile: 22px;
+  --text-body-lg: 16px;
+  --text-body-lg-mobile: 16px;
+  --text-body-md: 16px;
+  --text-body-md-mobile: 16px;
+  --text-caption: 13px;
+
+  /* ---- 4. Spacing (4px base unit, was 8px) & Grid ---- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-9: 72px;
+  --space-10: 80px;
+  --space-15: 120px;
+  /* Finorix's verified scale steps not already covered above */
+  --space-12: 12px;
+  --space-20: 20px;
+  --space-28: 28px;
+  --space-100: 100px;
+
+  --content-max-width: 1280px;
+  --gutter-mobile: 24px;
+  --gutter-desktop: 64px;
+  --breakpoint-tablet: 810px;  /* documented, not usable inside @media (no var() support there) */
+  --breakpoint-desktop: 1200px; /* not yet used by any built component */
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* ---- 6. Motion ---- */
+  --ease-out: ease; /* base easing per verified export; name kept for compatibility, was a custom curve */
+  --duration-reveal: 480ms;   /* scroll reveal: 400-600ms */
+  --duration-accordion: 250ms; /* accordion / small panel reveal: ~250ms ease-in-out (unchanged, distinct) */
+  --duration-hover: 200ms;     /* button/link hover response */
+
+  /* ---- Elevation (System Extension — see design.md §9) ---- */
+  --shadow-card:       0 4px 40px rgba(0, 0, 0, 0.02);  /* Finorix's measured shadows.card/elevated */
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.08); /* card hover "deepen" — not a Finorix value, see §9 */
+  --shadow-elevated:   var(--shadow-card);              /* alias, kept so existing CSS didn't need renaming */
+  --shadow-visual:     0 24px 48px rgba(0, 0, 0, 0.18);  /* large framed visuals: hero device, mockups */
+}

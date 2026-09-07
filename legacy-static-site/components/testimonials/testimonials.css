@@ -1,0 +1,218 @@
+/*
+  Dana AI — Testimonial Carousel styles.
+  Spec traced to design.md:
+    §5.10 Testimonials — card-based, auto-advancing, avatar + name + role + quote + optional
+                         5-star rating. "Glass card style consistent with feature cards" — reused
+                         verbatim: --color-bg-elevated, --color-border-subtle, --shadow-card.
+    §5.3 Badge         — eyebrow pill reused verbatim (styles/badge.css).
+    §3 Typography      — headline --text-display-lg (Section H2); quote --text-body-lg.
+    §2 Color           — --color-accent-primary (blue) used ONLY for a filled star (not triggered
+                         here — no real rating exists) and the active dot, never the card
+                         background, per this build's explicit instruction. Sample-tag uses
+                         --color-warning — its first real use anywhere in this system, and an
+                         appropriate one: this is genuinely a "do not ship as final" warning state.
+    §4 Spacing         — 120px/72px section rhythm, --radius-lg (24px, matches other large visual
+                         cards).
+    §6 Motion          — cross-fade between slides (reuses the exact auto-advance/pause-on-hover/
+                         manual-dot pattern from ai-advisor.js's fallback carousel — not a new
+                         pattern), scroll-reveal for the whole carousel via the shared [data-reveal]
+                         (a single block, not a staggered grid — only one slide is ever visible, so
+                         there's nothing to stagger).
+
+  Slide stacking: all slides share one CSS Grid cell (grid-column/row: 1), so the track's height is
+  always driven by the tallest slide regardless of which one is opacity:0 — avoids guessing a fixed
+  height the way absolute positioning would require (ai-advisor's screenshot stack could use
+  absolute+inset safely because that container already had a fixed aspect-ratio; testimonial card
+  height varies with quote length, so grid-stacking is the more robust choice here).
+*/
+
+.testimonials {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.testimonials__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonials__headline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.testimonials__carousel {
+  position: relative;
+  margin: var(--space-9) auto 0;
+  max-width: 640px;
+}
+
+.testimonials__sample-tag {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  padding: 8px 16px;
+  background-color: var(--color-warning);
+  color: #000000;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.testimonials__track {
+  display: grid;
+}
+
+.testimonials__card {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-6) var(--space-5);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms var(--ease-out);
+}
+
+.testimonials__card.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.testimonials__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.testimonials__star {
+  width: 18px;
+  height: 18px;
+  color: var(--color-border-subtle);
+}
+
+/* Reserved for when a real rating exists: .testimonials__star.is-filled { color: var(--color-accent-primary); } */
+
+.testimonials__quote {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-primary);
+  max-width: 480px;
+}
+
+.testimonials__person {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.testimonials__avatar {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-bg-base);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+}
+
+.testimonials__avatar svg {
+  width: 22px;
+  height: 22px;
+}
+
+.testimonials__name {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: left;
+}
+
+.testimonials__role {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-align: left;
+}
+
+.testimonials__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: var(--space-3);
+}
+
+/* Visual dot stays 8px (unchanged look), but the tappable box is 32px — an 8px hit target is
+   unusable on touch (WCAG 2.5.8 wants >=24px minimum). Same enlarged-hitbox-around-small-visual
+   technique as the navbar hamburger's 40x40 button around its thin spans. */
+.testimonials__dot {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.testimonials__dot::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-border-subtle);
+  transition: background-color var(--duration-hover) ease;
+}
+
+.testimonials__dot.is-active::after {
+  background-color: var(--color-accent-primary);
+}
+
+.testimonials__dot:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+@media (max-width: 810px) {
+  .testimonials {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .testimonials__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .testimonials__card {
+    padding: var(--space-5) var(--space-3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials__card {
+    transition-duration: 1ms;
+  }
+}

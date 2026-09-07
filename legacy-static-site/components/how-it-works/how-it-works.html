@@ -1,0 +1,88 @@
+<!--
+  Dana AI — How It Works (design.md §8 site map item 7; component spec §5.8)
+
+  Real content used verbatim: title "How It Works", subhead as given.
+
+  FLAG: the live site currently has only the one-sentence subhead with no actual numbered steps —
+  exactly the gap §5.8 calls out. The three step labels below are INFERRED from Dana's real product
+  description (team page: chat -> alternative-data cashflow scoring -> matched credit/products/
+  advisors), not sourced from an existing three-step breakdown on the live site. Flagging for
+  Dana's own copy review rather than presenting these as verified final copy.
+
+  Screenshots: real assets from assets/how-it-works-screen-{1,2,3}.webp (renamed from their
+  original inconsistent filenames — one had a literal space, capitalization varied across the
+  three — for path safety; pixel content unchanged). Mapped 1:1 to steps 01/02/03. No
+  sec3-screens/Picture21.png reference existed anywhere in this codebase to drop; noting that the
+  instruction to drop it doesn't apply here, in case that reference belongs to a different session.
+
+  Frame: reuses the CSS-drawn phone bezel already established (hero-visual-chatbubble.css,
+  ai-advisor.css) — hand_phone_frame.png still hasn't been provided, see design.md §9.
+-->
+<section class="how-it-works" id="how-it-works" aria-label="How It Works">
+  <div class="how-it-works__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      Getting Started
+    </span>
+    <h2 class="how-it-works__headline">How It Works</h2>
+    <p class="how-it-works__subhead">
+      Dana builds your cash flow score through a quick, friendly chat.
+    </p>
+
+    <div class="how-it-works__process">
+      <div class="how-it-works__line" aria-hidden="true"></div>
+
+      <div class="how-it-works__steps">
+        <div class="how-it-works__step" data-reveal>
+          <span class="how-it-works__number">01</span>
+          <h3 class="how-it-works__title">Chat with Dana about your finances</h3>
+          <p class="how-it-works__description">
+            Start a quick, friendly conversation — no forms, no paperwork.
+          </p>
+          <div class="how-it-works__phone">
+            <div class="how-it-works__notch" aria-hidden="true"></div>
+            <img
+              class="how-it-works__screenshot"
+              src="/assets/how-it-works-screen-1.webp"
+              alt="Dana chat screen showing the start of a conversation about the user's finances"
+            />
+          </div>
+        </div>
+
+        <div class="how-it-works__step" data-reveal>
+          <span class="how-it-works__number">02</span>
+          <h3 class="how-it-works__title">Dana builds your cashflow score</h3>
+          <p class="how-it-works__description">
+            Your transaction history and digital footprint are analyzed instantly to assess
+            affordability.
+          </p>
+          <div class="how-it-works__phone">
+            <div class="how-it-works__notch" aria-hidden="true"></div>
+            <img
+              class="how-it-works__screenshot"
+              src="/assets/how-it-works-screen-2.webp"
+              alt="Dana screen showing the cashflow score being calculated from transaction data"
+            />
+          </div>
+        </div>
+
+        <div class="how-it-works__step" data-reveal>
+          <span class="how-it-works__number">03</span>
+          <h3 class="how-it-works__title">Get matched to what fits</h3>
+          <p class="how-it-works__description">
+            Personalized credit, financial products, and trusted advisors — matched to your real
+            profile.
+          </p>
+          <div class="how-it-works__phone">
+            <div class="how-it-works__notch" aria-hidden="true"></div>
+            <img
+              class="how-it-works__screenshot"
+              src="/assets/how-it-works-screen-3.webp"
+              alt="Dana screen showing matched credit products and advisor recommendations"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

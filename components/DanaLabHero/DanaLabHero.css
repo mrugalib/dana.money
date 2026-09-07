@@ -1,0 +1,116 @@
+/*
+  Dana Labs — Hero styles.
+  Reuses the site's shared tokens/primitives (pill-badge, .btn, --gradient-glow, --gradient-brand)
+  rather than inventing new ones — see design.md §2/§4/§6 conventions carried over from Hero.css
+  and FinalCTA.css. Light background (unlike the homepage Hero's image treatment) since no Dana-
+  supplied lab background asset exists; the glow + gradient text-fill supply the "premium" feel
+  instead of a new image.
+*/
+
+.dana-lab-hero {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-15) var(--gutter-desktop) var(--space-10);
+  text-align: center;
+}
+
+.dana-lab-hero__glow {
+  position: absolute;
+  inset: -20% -10% auto -10%;
+  height: 640px;
+  background: var(--gradient-glow);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dana-lab-hero__container {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dana-lab-hero__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.52px;
+  color: var(--color-text-primary);
+}
+
+.dana-lab-hero__headline-accent {
+  background: var(--gradient-brand);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.dana-lab-hero__subhead {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+}
+
+.dana-lab-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--space-2);
+}
+
+.dana-lab-hero__live {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-3);
+  margin: var(--space-6) 0 0;
+  padding: 0;
+}
+
+.dana-lab-hero__live-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-text-secondary);
+}
+
+.dana-lab-hero__live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 25%, transparent);
+}
+
+@media (max-width: 810px) {
+  .dana-lab-hero {
+    padding: var(--space-10) var(--gutter-mobile) var(--space-8);
+  }
+
+  .dana-lab-hero__headline {
+    font-size: var(--text-display-xl-mobile);
+  }
+
+  .dana-lab-hero__live {
+    gap: var(--space-2);
+  }
+}

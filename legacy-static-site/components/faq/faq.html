@@ -1,0 +1,112 @@
+<!--
+  Dana AI — FAQ Accordion (design.md §5.12, site map item 13)
+
+  First 4 Q&As are real content, used verbatim.
+
+  The last 4 are placeholder trust-question HEADERS ONLY — no answers invented. §5.12 explicitly
+  requires four finance-specific trust topics (data privacy, credit/loan eligibility mechanics,
+  security standard, what "cashflow score" means); this build's instructions named three of those
+  explicitly and this section adds the fourth ("what does cashflow score mean") too, since design.md
+  itself requires it even though it wasn't in the explicit list this round — flagging that addition
+  here rather than silently dropping a spec requirement. Every placeholder answer panel says plainly
+  that it needs input from Dana's compliance/product team; nothing is invented to fill the gap.
+-->
+<section class="faq" id="faq" aria-label="Frequently Asked Questions">
+  <div class="faq__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      FAQ
+    </span>
+    <h2 class="faq__headline">Frequently Asked Questions</h2>
+
+    <div class="faq__list">
+      <div class="faq__item" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+          Can I switch plans anytime?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" aria-hidden="true">
+          <p>Yes. You can upgrade or downgrade your plan at any time. The change will take effect
+            in your next billing cycle.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+          Is there a free plan?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" aria-hidden="true">
+          <p>Yes. Both user and sales officer memberships have a free Basic tier with limited
+            features so you can try before upgrading.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+          How do AI queries work?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" aria-hidden="true">
+          <p>AI queries allow you to ask our system for instant financial insights, comparisons,
+            and recommendations. Your daily limit depends on your membership tier.</p>
+        </div>
+      </div>
+
+      <div class="faq__item" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+          How do sales officer requests work?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" aria-hidden="true">
+          <p>When you send a request, we connect you to qualified sales officers. Your reach per
+            request depends on your plan's maximum officer limit.</p>
+        </div>
+      </div>
+
+      <div class="faq__item faq__item--pending" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-5" id="faq-trigger-5">
+          How is my financial data protected?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" aria-hidden="true">
+          <p class="faq__pending-note">Needs input from Dana's compliance/product team — data
+            privacy policy not yet finalized for publication.</p>
+        </div>
+      </div>
+
+      <div class="faq__item faq__item--pending" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-6" id="faq-trigger-6">
+          How does credit and loan eligibility get decided?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6" aria-hidden="true">
+          <p class="faq__pending-note">Needs input from Dana's compliance/product team — eligibility
+            mechanics not yet confirmed for publication.</p>
+        </div>
+      </div>
+
+      <div class="faq__item faq__item--pending" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-7" id="faq-trigger-7">
+          What security standards does Dana follow?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7" aria-hidden="true">
+          <p class="faq__pending-note">Needs input from Dana's compliance/product team — no
+            security certification/standard has been confirmed for publication.</p>
+        </div>
+      </div>
+
+      <div class="faq__item faq__item--pending" data-reveal>
+        <button type="button" class="faq__question" aria-expanded="false" aria-controls="faq-panel-8" id="faq-trigger-8">
+          What exactly does my "cashflow score" mean?
+          <span class="faq__icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq__answer" id="faq-panel-8" role="region" aria-labelledby="faq-trigger-8" aria-hidden="true">
+          <p class="faq__pending-note">Needs input from Dana's compliance/product team — the exact
+            scoring methodology isn't public yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

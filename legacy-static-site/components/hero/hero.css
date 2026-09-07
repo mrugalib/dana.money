@@ -1,0 +1,169 @@
+/*
+  Dana AI — Hero styles.
+  Spec traced to design.md:
+    §5.4 Hero    — two-column desktop (text left, visual right) -> stacked mobile.
+                   Device frame + soft drop shadow + faint --gradient-glow behind it. Dual CTA:
+                   primary "Get Dana AI" + secondary "See how it works".
+    §5.3 Badge   — eyebrow pill (shared styles/badge.css), sits above the headline.
+    §3 Typography— three-line headline, middle line gets --gradient-brand text-fill (verified
+                   safe, see §9), outer lines in secondary tone (never same weight/tone for all 3).
+    §4 Spacing   — 120px/72px section rhythm, 24px grid gutters, 4px-multiple gaps.
+    §7 Imagery   — --gradient-glow behind hero/CTA only, one consistent device-frame style.
+    §6 Motion    — on-load reveal reuses the documented scroll-reveal timing/easing
+                   (fade + translateY(16px), 400-600ms ease, ~80-120ms stagger).
+*/
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.hero__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.hero__content {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.hero__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.52px;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line--secondary {
+  color: var(--color-text-secondary);
+}
+
+.hero__line--accent {
+  /* gradient-brand text-fill — verified safe, 9.4:1 minimum against the white canvas at every
+     point along the gradient (blue and dark-green stops both low-luminance), see design.md §9 */
+  background: var(--gradient-brand);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.hero__visual {
+  grid-column: 7 / span 6;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__glow {
+  position: absolute;
+  inset: -15% -10%;
+  background: var(--gradient-glow);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero__device {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  filter: drop-shadow(var(--shadow-visual));
+}
+
+/* ---- On-load reveal (reuses §6 scroll-reveal timing/easing) ---- */
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__content > *,
+.hero__visual {
+  animation: hero-reveal var(--duration-reveal) var(--ease-out) both;
+}
+
+.hero__content > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.hero__content > *:nth-child(2) {
+  animation-delay: 100ms;
+}
+.hero__content > *:nth-child(3) {
+  animation-delay: 200ms;
+}
+.hero__visual {
+  animation-delay: 250ms;
+}
+
+/* ---- Mobile: stacked layout ---- */
+@media (max-width: 810px) {
+  .hero {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .hero__content,
+  .hero__visual {
+    grid-column: 1 / -1;
+  }
+
+  .hero__headline {
+    font-size: var(--text-display-xl-mobile);
+    line-height: 1.2;
+  }
+
+  .hero__device {
+    max-width: 280px;
+  }
+}
+
+/* ---- Reduced motion: opacity fade only, no translateY (design.md §6) ---- */
+@keyframes hero-reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__content > *,
+  .hero__visual {
+    animation-name: hero-reveal-fade;
+    animation-duration: 300ms;
+  }
+}

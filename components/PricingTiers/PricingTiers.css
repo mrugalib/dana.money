@@ -1,0 +1,246 @@
+/*
+  Dana AI — Pricing page styles.
+  Spec traced to design.md:
+    §5.11 Pricing — 2-3 tier cards per group, --color-bg-elevated fill, soft card shadow, featured
+                    tier gets a solid accent border + slight raise, check-icons in
+                    --color-accent-primary (updated from lime this round, see §9), single primary
+                    button style reserved for the one real actionable CTA ("Get Started Free");
+                    "Coming Soon" renders as a disabled ghost button, not a live-looking primary.
+    §1 Restraint  — pricing header is a simple centered treatment, not the full two-column hero
+                    (§5.4) — explicitly too heavy here.
+    §3 Typography — header H1 --text-display-lg (not the full Hero --text-display-xl, keeping this
+                    page visually quieter than the homepage hero). Centered subhead is a deliberate,
+                    named exception to "never center-align body paragraphs longer than one line" —
+                    see design.md §9.
+    §4 Spacing    — 120px/72px section rhythm, --radius-lg (24px) cards.
+    §6 Motion     — scroll-reveal via the shared [data-reveal] primitive per tier card. No
+                    hover-lift on these cards (a pricing card's own CTA button already carries the
+                    interactive affordance), so no reveal/hover cascade-collision risk — data-reveal
+                    goes on the wrapper `.pricing-tiers__item`, with the featured card's static
+                    "raise" applied to the inner `.pricing-tiers__card` instead, avoiding two
+                    different `transform` intents on one element (same reasoning as the feature
+                    grid's reveal-wrapper/hover-card split, applied here to a static-vs-reveal split
+                    instead of a hover-vs-reveal one).
+*/
+
+/* ---- Header ---- */
+.pricing-header {
+  padding: var(--space-15) var(--gutter-desktop) var(--space-9);
+  text-align: center;
+}
+
+.pricing-header__container {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.pricing-header__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.pricing-header__subhead {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Tier groups ---- */
+.pricing-tiers {
+  padding: var(--space-9) var(--gutter-desktop);
+}
+
+.pricing-tiers--alt {
+  background-color: var(--color-bg-elevated);
+}
+
+.pricing-tiers__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.pricing-tiers__group-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.pricing-tiers__group-subhead {
+  margin: var(--space-1) 0 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.pricing-tiers__grid {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.pricing-tiers__item:nth-child(1) { transition-delay: 0ms; }
+.pricing-tiers__item:nth-child(2) { transition-delay: 100ms; }
+.pricing-tiers__item:nth-child(3) { transition-delay: 200ms; }
+
+.pricing-tiers__card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-5) var(--space-3);
+  text-align: left;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.pricing-tiers--alt .pricing-tiers__card {
+  background-color: var(--color-bg-base);
+}
+
+/* Featured tier: solid accent border, not --color-border-glow (that's reserved for interactive
+   hover/focus states, not static card definition, see §4/§9) + a static raise. */
+.pricing-tiers__card--featured {
+  border: 2px solid var(--color-accent-primary);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-8px);
+}
+
+.pricing-tiers__featured-tag {
+  position: absolute;
+  top: 0;
+  right: var(--space-3);
+  transform: translateY(-50%);
+  padding: 4px 12px;
+  background-color: var(--color-accent-primary);
+  color: var(--on-primary);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.pricing-tiers__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.pricing-tiers__price {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.pricing-tiers__amount {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.pricing-tiers__period {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.pricing-tiers__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.pricing-tiers__features {
+  width: 100%;
+  margin: var(--space-2) 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.pricing-tiers__features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.pricing-tiers__check {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  color: var(--color-accent-primary);
+}
+
+.pricing-tiers__cta {
+  width: 100%;
+  margin-top: auto;
+  justify-content: center;
+}
+
+/* Tablet tier (810-1200px, design.md §4): 3-up cards squeeze to ~212-341px each here, noticeably
+   tighter than desktop's 341px+ — 2-up gives each card real breathing room; the 3rd card in each
+   group of 3 wraps to its own row, an acceptable "2+1" tablet layout. See design.md §9. */
+@media (max-width: 1200px) {
+  .pricing-tiers__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 810px) {
+  .pricing-header {
+    padding: var(--space-9) var(--gutter-mobile) var(--space-6);
+  }
+
+  .pricing-header__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .pricing-tiers {
+    padding: var(--space-6) var(--gutter-mobile);
+  }
+
+  .pricing-tiers__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .pricing-tiers__card--featured {
+    transform: none;
+  }
+}

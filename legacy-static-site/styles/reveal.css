@@ -1,0 +1,29 @@
+/*
+  Dana AI — Shared scroll-reveal primitive (design.md §6).
+  "Elements fade+translateY(16px→0) on entering viewport, 400-600ms ease, staggered 80-120ms per
+  sibling... never animate more than once per element per visit." Any element below the fold that
+  needs this reuses the same [data-reveal] attribute + styles/scroll-reveal.js, rather than each
+  component re-declaring its own opacity/transform/transition rules (see §9).
+
+  Not used by the hero's own intro animation — that's an on-load reveal (plays immediately since
+  the hero is above the fold), a different trigger from this scroll-into-view mechanism, even
+  though both share the same visual motion and timing tokens.
+*/
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-reveal) var(--ease-out), transform var(--duration-reveal) var(--ease-out);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: opacity 300ms linear;
+    transform: none;
+  }
+}

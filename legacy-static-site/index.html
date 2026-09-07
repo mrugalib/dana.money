@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dana AI — Navbar + Hero Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
+  <!-- AirbnbCereal_W_Bd (design.md §3) is proprietary/unlicensed — intentionally not loaded here;
+       --font-display falls back to generic sans-serif, see design.md §9 -->
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/reveal.css" />
+  <link rel="stylesheet" href="/styles/buttons.css" />
+  <link rel="stylesheet" href="/styles/badge.css" />
+  <link rel="stylesheet" href="/components/navbar/navbar.css" />
+  <link rel="stylesheet" href="/components/hero/hero.css" />
+  <link rel="stylesheet" href="/components/hero/hero-visual-chatbubble.css" />
+  <link rel="stylesheet" href="/components/trust-bar/trust-bar.css" />
+  <link rel="stylesheet" href="/components/problem-solution/problem-solution.css" />
+  <link rel="stylesheet" href="/components/ai-advisor/ai-advisor.css" />
+  <link rel="stylesheet" href="/components/feature-grid/feature-grid.css" />
+  <link rel="stylesheet" href="/components/how-it-works/how-it-works.css" />
+  <link rel="stylesheet" href="/components/rewards/rewards.css" />
+  <link rel="stylesheet" href="/components/experts/experts.css" />
+  <link rel="stylesheet" href="/components/metrics/metrics.css" />
+  <link rel="stylesheet" href="/components/testimonials/testimonials.css" />
+  <link rel="stylesheet" href="/components/get-the-app/get-the-app.css" />
+  <link rel="stylesheet" href="/components/final-cta/final-cta.css" />
+  <link rel="stylesheet" href="/components/footer/footer.css" />
+  <style>
+    * { box-sizing: border-box; }
+    /* Anchor-link targets (#features, #how-it-works, #rewards, #get-dana-ai, etc.) would otherwise
+       land flush behind the sticky navbar (opaque/glass once scrolled) and clip the section
+       heading. Matches navbar bar height at each tier: 80px desktop, 64px mobile below 810px
+       (design.md §9, "scroll-padding-top for sticky-navbar anchor targets"). */
+    html {
+      scroll-padding-top: calc(var(--space-10) + var(--space-1));
+    }
+    @media (max-width: 810px) {
+      html {
+        scroll-padding-top: calc(var(--space-8) + var(--space-1));
+      }
+    }
+    body {
+      margin: 0;
+      background-color: var(--color-bg-base);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+    }
+    /* ---- Demo-only harness controls (not part of the shipped component) ---- */
+    .demo-toggle {
+      position: fixed;
+      bottom: var(--space-3);
+      right: var(--space-3);
+      z-index: 1100;
+      display: flex;
+      gap: var(--space-1);
+      padding: var(--space-1);
+      background-color: var(--color-bg-elevated);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-elevated);
+    }
+    .demo-toggle button {
+      font-family: var(--font-body);
+      font-size: var(--text-caption);
+      font-weight: 600;
+      /* bg-elevated is a neutral near-white surface now — text-primary works directly on it */
+      color: var(--color-text-primary);
+      background: none;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 8px 16px;
+      cursor: pointer;
+      opacity: 0.7;
+    }
+    .demo-toggle button[aria-pressed="true"] {
+      opacity: 1;
+      background-color: var(--color-bg-glass);
+    }
+  </style>
+</head>
+<body>
+  <div data-navbar-slot></div>
+  <div data-hero-slot></div>
+  <div data-trust-bar-slot></div>
+  <div data-problem-solution-slot></div>
+  <div data-ai-advisor-slot></div>
+  <div data-feature-grid-slot></div>
+  <div data-how-it-works-slot></div>
+  <div data-rewards-slot></div>
+  <div data-experts-slot></div>
+  <div data-metrics-slot></div>
+  <div data-testimonials-slot></div>
+  <div data-get-the-app-slot></div>
+  <div data-final-cta-slot></div>
+  <div data-footer-slot></div>
+
+  <!-- Demo-only: compare Option A (real hero.gif) vs Option B (proposed chat-bubble loop) -->
+  <div class="demo-toggle" role="group" aria-label="Hero visual option (demo only)">
+    <button type="button" data-visual-option="gif" aria-pressed="true">A · GIF</button>
+    <button type="button" data-visual-option="chatbubble" aria-pressed="false">B · Chat loop</button>
+  </div>
+
+  <script>
+    // Demo-only: inline the navbar and hero partials, then load navbar.js — both fetches
+    // are async, so navbar.js must run after injection, not via a static <script defer>.
+    Promise.all([
+      fetch('/components/navbar/navbar.html').then((res) => res.text()),
+      fetch('/components/hero/hero.html').then((res) => res.text()),
+      fetch('/components/hero/hero-visual-chatbubble.html').then((res) => res.text()),
+      fetch('/components/trust-bar/trust-bar.html').then((res) => res.text()),
+      fetch('/components/problem-solution/problem-solution.html').then((res) => res.text()),
+      fetch('/components/ai-advisor/ai-advisor.html').then((res) => res.text()),
+      fetch('/components/feature-grid/feature-grid.html').then((res) => res.text()),
+      fetch('/components/how-it-works/how-it-works.html').then((res) => res.text()),
+      fetch('/components/rewards/rewards.html').then((res) => res.text()),
+      fetch('/components/experts/experts.html').then((res) => res.text()),
+      fetch('/components/metrics/metrics.html').then((res) => res.text()),
+      fetch('/components/testimonials/testimonials.html').then((res) => res.text()),
+      fetch('/components/get-the-app/get-the-app.html').then((res) => res.text()),
+      fetch('/components/final-cta/final-cta.html').then((res) => res.text()),
+      fetch('/components/footer/footer.html').then((res) => res.text()),
+    ]).then(([navbarHtml, heroHtml, chatbubbleHtml, trustBarHtml, problemSolutionHtml, aiAdvisorHtml, featureGridHtml, howItWorksHtml, rewardsHtml, expertsHtml, metricsHtml, testimonialsHtml, getTheAppHtml, finalCtaHtml, footerHtml]) => {
+      document.querySelector('[data-navbar-slot]').outerHTML = navbarHtml;
+      document.querySelector('[data-hero-slot]').outerHTML = heroHtml;
+      document.querySelector('[data-trust-bar-slot]').outerHTML = trustBarHtml;
+      document.querySelector('[data-problem-solution-slot]').outerHTML = problemSolutionHtml;
+      document.querySelector('[data-ai-advisor-slot]').outerHTML = aiAdvisorHtml;
+      document.querySelector('[data-feature-grid-slot]').outerHTML = featureGridHtml;
+      document.querySelector('[data-how-it-works-slot]').outerHTML = howItWorksHtml;
+      document.querySelector('[data-rewards-slot]').outerHTML = rewardsHtml;
+      document.querySelector('[data-experts-slot]').outerHTML = expertsHtml;
+      document.querySelector('[data-metrics-slot]').outerHTML = metricsHtml;
+      document.querySelector('[data-testimonials-slot]').outerHTML = testimonialsHtml;
+      document.querySelector('[data-get-the-app-slot]').outerHTML = getTheAppHtml;
+      document.querySelector('[data-final-cta-slot]').outerHTML = finalCtaHtml;
+      document.querySelector('[data-footer-slot]').outerHTML = footerHtml;
+
+      const navScript = document.createElement('script');
+      navScript.src = '/components/navbar/navbar.js';
+      document.body.appendChild(navScript);
+
+      const aiAdvisorScript = document.createElement('script');
+      aiAdvisorScript.src = '/components/ai-advisor/ai-advisor.js';
+      document.body.appendChild(aiAdvisorScript);
+
+      const metricsScript = document.createElement('script');
+      metricsScript.src = '/components/metrics/metrics.js';
+      document.body.appendChild(metricsScript);
+
+      const testimonialsScript = document.createElement('script');
+      testimonialsScript.src = '/components/testimonials/testimonials.js';
+      document.body.appendChild(testimonialsScript);
+
+      const footerScript = document.createElement('script');
+      footerScript.src = '/components/footer/footer.js';
+      document.body.appendChild(footerScript);
+
+      // Shared scroll-reveal primitive (styles/scroll-reveal.js) — load once, after every
+      // [data-reveal] element (trust bar cards, problem/solution block, AI advisor, feature
+      // grid cards, how-it-works steps, rewards illustration cards, expert photos, metrics
+      // items, testimonial carousel, get-the-app, final CTA) is in the DOM.
+      const revealScript = document.createElement('script');
+      revealScript.src = '/styles/scroll-reveal.js';
+      document.body.appendChild(revealScript);
+
+      // Demo-only toggle wiring — swaps [data-hero-visual]'s content between the two options.
+      const visual = document.querySelector('[data-hero-visual]');
+      const gifMarkup = visual.innerHTML;
+      const buttons = document.querySelectorAll('[data-visual-option]');
+      buttons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+          const glow = '<div class="hero__glow" aria-hidden="true"></div>';
+          visual.innerHTML = btn.dataset.visualOption === 'gif' ? gifMarkup : glow + chatbubbleHtml;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

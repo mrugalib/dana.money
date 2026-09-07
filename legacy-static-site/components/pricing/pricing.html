@@ -1,0 +1,137 @@
+<!--
+  Dana AI — Pricing page content (design.md §5.11, site map item 12)
+  Real content used verbatim: H1, subhead, both group subheads, all six tier names/prices/
+  descriptions/features/CTA labels, per this build's exact instructions.
+
+  Header: a simple centered treatment, not the full two-column hero (§5.4) — explicitly called out
+  as too heavy for a pricing page and in tension with §1's premium-restraint gut-check. The
+  centered subhead here is a deliberate, named exception to §3's "never center-align body
+  paragraphs longer than one line" rule — flagged in design.md §9 rather than silently ignored,
+  since a centered pricing-page intro is a near-universal, intentional convention, not an oversight.
+
+  Featured tier (Ultra / Ultra Plus, per this build's explicit override of the earlier Perk/Perk
+  Plus assumption): solid --color-accent-primary border, NOT --color-border-glow — border-glow is
+  documented (§4/§9) as reserved for interactive hover/focus states, not static card definition, so
+  using it here for an always-on "featured" marker would contradict that existing rule.
+
+  "Coming Soon" CTAs render as native `disabled` buttons (styles/buttons.css's new .btn:disabled
+  state) — genuinely non-interactive, not just styled to look inert — since these aren't real
+  purchasable actions yet. Only "Get Started Free" is a real primary button.
+
+  No monthly/annual toggle: no real annual rate has been published anywhere, so none is fabricated.
+  Monthly-only, flagged in the build summary and design.md §9.
+
+  Check-icons use --color-accent-primary (blue), per this build's explicit instruction — this
+  supersedes design.md §5.11's previously-written "lime" color, updated in design.md to match.
+-->
+<section class="pricing-header" id="pricing-header" aria-label="Pricing">
+  <div class="pricing-header__container">
+    <h1 class="pricing-header__headline">Choose Your Membership Plan</h1>
+    <p class="pricing-header__subhead">
+      Join our platform with plans designed for users and sales officers. Choose the perfect
+      membership tier for your needs.
+    </p>
+  </div>
+</section>
+
+<section class="pricing-tiers" id="user-plans" aria-label="User Membership Plans">
+  <div class="pricing-tiers__container">
+    <h2 class="pricing-tiers__group-title">User Membership Plans</h2>
+    <p class="pricing-tiers__group-subhead">Your starter plan for exploring AI financial tools</p>
+
+    <div class="pricing-tiers__grid">
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card">
+          <h3 class="pricing-tiers__name">Basic</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">Free</span><span class="pricing-tiers__period">/month</span></div>
+          <p class="pricing-tiers__description">Free plan with basic features for getting started</p>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5 AI queries per day</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>2 sales officer requests per month</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 3 officers per request</li>
+          </ul>
+          <a href="#get-dana-ai" class="btn btn--primary pricing-tiers__cta">Get Started Free</a>
+        </div>
+      </div>
+
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card">
+          <h3 class="pricing-tiers__name">Perk</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">৳99.00</span><span class="pricing-tiers__period">/month</span></div>
+          <p class="pricing-tiers__description">Enhanced plan with more features for growing businesses</p>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Basic</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>20 AI queries per day</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5 sales officer requests per month</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 5 officers per request</li>
+          </ul>
+          <button type="button" class="btn btn--secondary pricing-tiers__cta" disabled aria-disabled="true">Coming Soon</button>
+        </div>
+      </div>
+
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card pricing-tiers__card--featured">
+          <span class="pricing-tiers__featured-tag">Recommended</span>
+          <h3 class="pricing-tiers__name">Ultra</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">৳299.00</span><span class="pricing-tiers__period">/month</span></div>
+          <p class="pricing-tiers__description">Premium plan with advanced features for established businesses</p>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Perk</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>100 AI queries per day</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>7 sales officer requests per month</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 7 officers per request</li>
+          </ul>
+          <button type="button" class="btn btn--secondary pricing-tiers__cta" disabled aria-disabled="true">Coming Soon</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing-tiers pricing-tiers--alt" id="officer-plans" aria-label="Sales Officer Membership Plans">
+  <div class="pricing-tiers__container">
+    <h2 class="pricing-tiers__group-title">Sales Officer Membership Plans</h2>
+    <p class="pricing-tiers__group-subhead">Professional plans for sales officers</p>
+
+    <div class="pricing-tiers__grid">
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card">
+          <h3 class="pricing-tiers__name">Basic</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">Free</span><span class="pricing-tiers__period">/month</span></div>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>1 campaign per 1 day</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 3 users per campaign</li>
+          </ul>
+          <a href="#get-dana-ai" class="btn btn--primary pricing-tiers__cta">Get Started Free</a>
+        </div>
+      </div>
+
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card">
+          <h3 class="pricing-tiers__name">Perk Plus</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">৳499.00</span><span class="pricing-tiers__period">/month</span></div>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Basic</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>3 campaigns per 3 days</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 5 users per campaign</li>
+          </ul>
+          <button type="button" class="btn btn--secondary pricing-tiers__cta" disabled aria-disabled="true">Coming Soon</button>
+        </div>
+      </div>
+
+      <div class="pricing-tiers__item" data-reveal>
+        <div class="pricing-tiers__card pricing-tiers__card--featured">
+          <span class="pricing-tiers__featured-tag">Recommended</span>
+          <h3 class="pricing-tiers__name">Ultra Plus</h3>
+          <div class="pricing-tiers__price"><span class="pricing-tiers__amount">৳999.00</span><span class="pricing-tiers__period">/month</span></div>
+          <ul class="pricing-tiers__features">
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in Perk Plus</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>5 campaigns per 5 days</li>
+            <li><svg class="pricing-tiers__check" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10.5l4 4 8-9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reach up to 7 users per campaign</li>
+          </ul>
+          <button type="button" class="btn btn--secondary pricing-tiers__cta" disabled aria-disabled="true">Coming Soon</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

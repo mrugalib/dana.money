@@ -1,0 +1,26 @@
+<!--
+  Dana AI — Hero visual, OPTION B (proposed alternative to hero.gif, not shipped by default)
+
+  design.md §5.4: "Optional: swap the gif for a short looped micro-interaction (chat bubbles
+  typing in) rather than a static recording." Note: hero.gif is already an animated loop, not
+  a static recording, so the original motivation for this swap doesn't strictly apply — this
+  is presented as an option per the build instructions, not a replacement recommendation.
+
+  This is a CSS-only illustrative mockup (not real product footage) — swap [data-hero-visual]'s
+  contents between this file and hero.html's <img> to compare. Uses only documented tokens
+  (--radius-lg for the frame corner, since no phone-corner radius is defined in design.md).
+-->
+<div class="chat-mock" role="img" aria-label="Looped animation of Dana AI chat bubbles typing in, illustrating the conversational assistant">
+  <div class="chat-mock__notch" aria-hidden="true"></div>
+  <div class="chat-mock__screen">
+    <div class="chat-mock__bubble chat-mock__bubble--assistant chat-mock__bubble--1">
+      Hey! I noticed your cashflow dipped this week.
+    </div>
+    <div class="chat-mock__bubble chat-mock__bubble--user chat-mock__bubble--2">
+      Yeah, rent just went out.
+    </div>
+    <div class="chat-mock__typing chat-mock__bubble--3" aria-hidden="true">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</div>

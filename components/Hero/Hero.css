@@ -1,0 +1,263 @@
+/*
+  Dana AI — Hero styles.
+  Spec traced to design.md:
+    §5.4 Hero    — two-column desktop (text left, visual right) -> stacked mobile.
+                   Device frame + soft drop shadow. Dual CTA: primary "Get Dana AI" + secondary
+                   "See how it works".
+    §5.3 Badge   — eyebrow pill (shared global .pill-badge, app/globals.css), sits above headline.
+    §3 Typography— three-line headline, middle line gets accent-color emphasis, outer lines in a
+                   lighter tone (never same weight/tone for all 3).
+    §4 Spacing   — 120px/72px section rhythm, 24px grid gutters, 4px-multiple gaps.
+    §6 Motion    — on-load reveal reuses the documented scroll-reveal timing/easing
+                   (fade + translateY(16px), 400-600ms ease, ~80-120ms stagger).
+
+  BACKGROUND/PALETTE OVERRIDE (System Extension, design.md §9) — per explicit instruction to match
+  Finorix's hero atmosphere, this section now has a real dark-green gradient/grid background image
+  (public/assets/hero-bg-gradient.webp, supplied by the user, not generated) instead of the plain
+  white page background every other section uses. That's a real, deliberate exception to this
+  section only — every other section stays on --color-bg-base. Everything inside this section that
+  assumed a light background needed a light-on-dark counterpart:
+    - The shared global `.pill-badge` (bg-glass, border-subtle, text-secondary — all calibrated for
+      white) gets a scoped `.hero__badge` override: a white-based translucent fill/border and
+      --on-primary text, verified >10:1 against this background (see design.md §9 for the actual
+      luminance sample). The lime dot needs no change, it's already bright.
+    - `--gradient-brand` (blue -> dark green) was the old middle-line text-fill; against a
+      dark-green background, the dark-green end of that gradient would nearly disappear (the same
+      failure mode as the black-based border-subtle problem flagged elsewhere in this file). Swapped
+      to a solid `--color-surface-highlight` (lime) fill — verified ~7.7:1 contrast, and matches the
+      "greenery" direction explicitly asked for, without inventing a new color: lime is an existing,
+      already-sanctioned token.
+    - The two outer headline lines swap from --color-text-secondary (dark green, meant for white
+      backgrounds) to --on-primary (white) — verified ~11:1 contrast against this image's upper
+      region, the highest-contrast pairing available for body-weight display text here.
+    - The default `.btn--primary` (dark-green fill) would nearly disappear against this now-also-
+      dark-green background — same reasoning already documented for the Final CTA banner's ghost
+      button, but resolved properly here instead of shipped broken: `.hero__cta-primary` overrides
+      to a lime fill + dark text (`--color-text-primary` on lime is a pre-existing sanctioned
+      pairing, 14.7:1, see §2), which is also the "greenery-appropriate" CTA treatment asked for.
+      `.hero__cta-secondary` swaps the ghost button's black-based border/text for a white-based
+      translucent border + white text, for the same reason.
+    - The old `--gradient-glow` blue radial behind the device visual is removed for this section —
+      the new background image already supplies its own green ambient glow (visible as a bright
+      radial area low in the image), and a separate blue radial would visually fight it rather than
+      add atmosphere. `--gradient-glow` is untouched everywhere else it's used (Final CTA, Get The
+      App) — this is a hero-specific removal, not a token change.
+*/
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: var(--space-15) var(--gutter-desktop);
+  background-image: url("/assets/hero-bg-gradient.webp");
+  background-size: cover;
+  /* The source image's bright glow sits low in its own frame (2000x1533, a 1.3:1 landscape).
+     Anchoring to "bottom" keeps that glow pinned to the bottom of the section at every viewport
+     height, instead of "center" placing it wherever happens to fall in the middle of a section
+     that's often much taller than the image's own aspect implies — which left the visible (upper)
+     portion of the hero looking flat and dark, not "alive". See design.md §9. */
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.hero__badge {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: var(--on-primary);
+}
+
+.hero__container {
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.hero__content {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.hero__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.52px;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line--light {
+  color: var(--on-primary);
+}
+
+.hero__line--accent {
+  color: var(--color-surface-highlight);
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+/* Lime fill + dark text — the "greenery" CTA treatment, and a pre-existing sanctioned pairing
+   (§2: black/dark-green text on lime, 14.7:1) rather than the default dark-green .btn--primary,
+   which would nearly disappear against this section's own dark-green background. */
+.hero__cta-primary {
+  background-color: var(--color-surface-highlight);
+  color: var(--color-text-primary);
+  border: none;
+}
+
+.hero__cta-primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 24px rgba(185, 232, 72, 0.45);
+}
+
+.hero__cta-primary:focus-visible {
+  outline: 2px solid var(--on-primary);
+  outline-offset: 3px;
+}
+
+/* White-based ghost — the default .btn--secondary's black-based border/text is calibrated for
+   light backgrounds and would be unreadable here. */
+.hero__cta-secondary {
+  background-color: transparent;
+  color: var(--on-primary);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+.hero__cta-secondary:hover {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.hero__cta-secondary:focus-visible {
+  outline: 2px solid var(--on-primary);
+  outline-offset: 3px;
+}
+
+.hero__visual {
+  grid-column: 7 / span 6;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero__device {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  /* hero.gif is a genuinely tall 500x1021 (~0.49:1) capture — at max-width:360px alone it renders
+     ~735px tall regardless of viewport height, which on a typical laptop browser window (often
+     under 800px of visible height) pushes past the fold before the user scrolls at all, reading
+     as "cut off" even though nothing is actually clipped. Capping height too (browsers shrink
+     width in tandem to preserve aspect ratio when both max-width and max-height constrain a
+     replaced element) lets the whole device comfortably fit within the visible hero at any
+     viewport height, short or tall. See design.md §9. */
+  max-height: min(640px, 65vh);
+  filter: drop-shadow(var(--shadow-visual));
+}
+
+/* ---- On-load reveal (reuses §6 scroll-reveal timing/easing) ---- */
+@keyframes hero-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero__content > *,
+.hero__visual {
+  animation: hero-reveal var(--duration-reveal) var(--ease-out) both;
+}
+
+.hero__content > *:nth-child(1) {
+  animation-delay: 0ms;
+}
+.hero__content > *:nth-child(2) {
+  animation-delay: 100ms;
+}
+.hero__content > *:nth-child(3) {
+  animation-delay: 200ms;
+}
+.hero__visual {
+  animation-delay: 250ms;
+}
+
+/* ---- Mobile: stacked layout ----
+   Reworked per design.md §9 mobile-QA pass: the previous 280px-wide device (height driven by the
+   image's own 500:1021 aspect, ~571px) combined with the desktop-oriented max-height:min(640px,65vh)
+   left almost no vertical margin between text block and phone, read as cramped, and pushed the
+   phone's own bottom bezel/home-indicator uncomfortably close to (in short-viewport browsers,
+   past) the section's bottom edge. Shrinking the device and giving every block explicit mobile-
+   tier gaps fixes both: a visibly smaller, properly-framed phone with real breathing room above,
+   below, and around it. */
+@media (max-width: 810px) {
+  .hero {
+    min-height: auto;
+    padding: var(--space-10) var(--gutter-mobile) var(--space-9);
+  }
+
+  .hero__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  .hero__content,
+  .hero__visual {
+    grid-column: 1 / -1;
+  }
+
+  .hero__content {
+    gap: var(--space-4);
+  }
+
+  .hero__headline {
+    font-size: var(--text-display-xl-mobile);
+    line-height: 1.22;
+  }
+
+  .hero__device {
+    max-width: 210px;
+    max-height: 430px;
+  }
+}
+
+/* ---- Reduced motion: opacity fade only, no translateY (design.md §6) ---- */
+@keyframes hero-reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__content > *,
+  .hero__visual {
+    animation-name: hero-reveal-fade;
+    animation-duration: 300ms;
+  }
+}

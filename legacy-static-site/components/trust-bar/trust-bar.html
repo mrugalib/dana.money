@@ -1,0 +1,33 @@
+<!--
+  Dana AI — Trust Bar (design.md §5.5)
+  §5.5 calls for a logo marquee, with an explicit fallback: "If Dana lacks partner/press logos
+  yet, substitute with a stat strip instead (users, loans disbursed, avg. rating) — never leave
+  this slot empty." Dana has no consumer-facing partner/press logos (Dana Labs' partner logos are
+  B2B/lab-page content, not this page), so this is the stat-strip fallback.
+
+  No real figures exist yet — every value is an explicit pending state (dashed border + "—" +
+  aria-label="Value pending"), never a fabricated number. Flagged in the build summary: these four
+  cards need real figures from Dana before this ships.
+-->
+<section class="trust-bar" id="trust-bar" aria-label="Trust indicators">
+  <div class="trust-bar__container">
+    <div class="trust-bar__grid">
+      <div class="trust-bar__card" data-reveal>
+        <div class="trust-bar__value" aria-label="Value pending">—</div>
+        <div class="trust-bar__label">Active users</div>
+      </div>
+      <div class="trust-bar__card" data-reveal>
+        <div class="trust-bar__value" aria-label="Value pending">—</div>
+        <div class="trust-bar__label">Cashflow scores generated</div>
+      </div>
+      <div class="trust-bar__card" data-reveal>
+        <div class="trust-bar__value" aria-label="Value pending">—</div>
+        <div class="trust-bar__label">Loans facilitated</div>
+      </div>
+      <div class="trust-bar__card" data-reveal>
+        <div class="trust-bar__value" aria-label="Value pending">—</div>
+        <div class="trust-bar__label">Average rating</div>
+      </div>
+    </div>
+  </div>
+</section>

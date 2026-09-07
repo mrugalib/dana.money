@@ -1,0 +1,63 @@
+<!--
+  Dana AI — Let Experts Guide You (design.md §8 site map item 9)
+  Styled as a proper trust grid — the live site currently loops these same six photos
+  inconsistently in a loose row; this replaces that with a clean, evenly-spaced grid.
+
+  Real content used verbatim: title "Let Experts Guide You".
+
+  FLAG: no name, role, or bio text exists for any of these six people beyond the photo itself — not
+  on the live site, not supplied with the assets. Per instruction, NOT fabricating names/roles for
+  real people. This is a photo-only grid. Real names + roles are needed from Dana before this ships
+  with any caption text — see design.md §9.
+
+  Photos: real headshots at assets/expert1.webp through expert6.webp (confirmed present, provided
+  after this section's build started).
+
+  Card visual language reused verbatim from the feature grid (§5.6): --color-bg-elevated fill,
+  --shadow-card resting / --shadow-card-hover on hover, same reveal-wrapper/hover-card split to
+  avoid the transition-shorthand cascade collision documented in design.md §9 — icon slot becomes
+  photo slot; title/description slot is dropped entirely since no name/role text exists to put there
+  (not left as empty invented placeholders).
+-->
+<section class="experts" id="experts" aria-label="Let Experts Guide You">
+  <div class="experts__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      Meet the Experts
+    </span>
+    <h2 class="experts__headline">Let Experts Guide You</h2>
+
+    <div class="experts__grid">
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert1.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert2.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert3.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert4.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert5.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+      <div class="experts__item" data-reveal>
+        <div class="experts__card">
+          <img class="experts__photo" src="/assets/expert6.webp" alt="Dana financial expert" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

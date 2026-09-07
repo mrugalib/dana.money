@@ -1,0 +1,218 @@
+/*
+  Dana Labs — Core Capabilities styles.
+  Card treatment intentionally matches the enhanced FeatureGrid card pattern (icon badge, idle
+  float + hover pop on the icon, accent border/lift on hover) for visual consistency between the
+  homepage's "What Dana does" and this page's "Core Capabilities" — same design system, same
+  premium card language, different content.
+*/
+
+.dana-lab-capabilities {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.dana-lab-capabilities__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.dana-lab-capabilities__headline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+  max-width: 640px;
+}
+
+.dana-lab-capabilities__grid {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.dana-lab-capabilities__item:nth-child(1) { transition-delay: 0ms; }
+.dana-lab-capabilities__item:nth-child(2) { transition-delay: 100ms; }
+.dana-lab-capabilities__item:nth-child(3) { transition-delay: 200ms; }
+
+.dana-lab-capabilities__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5) var(--space-3);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform var(--duration-hover) ease, box-shadow var(--duration-hover) ease,
+    border-color var(--duration-hover) ease;
+}
+
+.dana-lab-capabilities__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.dana-lab-capabilities__card--blue:hover {
+  border-color: var(--color-accent-primary);
+}
+
+.dana-lab-capabilities__card--green:hover {
+  border-color: var(--color-accent-secondary);
+}
+
+.dana-lab-capabilities__index {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.dana-lab-capabilities__icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  transition: transform var(--duration-hover) ease, background-color var(--duration-hover) ease;
+}
+
+.dana-lab-capabilities__icon-wrap--blue {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 14%, transparent);
+}
+
+.dana-lab-capabilities__icon-wrap--green {
+  background-color: color-mix(in srgb, var(--color-accent-secondary) 14%, transparent);
+}
+
+.dana-lab-capabilities__card:hover .dana-lab-capabilities__icon-wrap {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.dana-lab-capabilities__card--blue:hover .dana-lab-capabilities__icon-wrap {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 22%, transparent);
+}
+
+.dana-lab-capabilities__card--green:hover .dana-lab-capabilities__icon-wrap {
+  background-color: color-mix(in srgb, var(--color-accent-secondary) 22%, transparent);
+}
+
+.dana-lab-capabilities__icon {
+  width: 26px;
+  height: 26px;
+  animation: dana-lab-icon-float 3.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.dana-lab-capabilities__item:nth-child(1) .dana-lab-capabilities__icon { animation-delay: 0s; }
+.dana-lab-capabilities__item:nth-child(2) .dana-lab-capabilities__icon { animation-delay: 0.4s; }
+.dana-lab-capabilities__item:nth-child(3) .dana-lab-capabilities__icon { animation-delay: 0.8s; }
+
+.dana-lab-capabilities__card:hover .dana-lab-capabilities__icon {
+  animation: dana-lab-icon-pop 0.6s ease;
+}
+
+@keyframes dana-lab-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes dana-lab-icon-pop {
+  0% { transform: scale(1) rotate(0deg); }
+  35% { transform: scale(1.22) rotate(8deg); }
+  60% { transform: scale(0.96) rotate(-4deg); }
+  100% { transform: scale(1.08) rotate(0deg); }
+}
+
+.dana-lab-capabilities__icon--blue {
+  color: var(--color-accent-primary);
+}
+
+.dana-lab-capabilities__icon--green {
+  color: var(--color-accent-secondary);
+}
+
+.dana-lab-capabilities__category {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.dana-lab-capabilities__category--blue {
+  color: var(--color-accent-primary);
+}
+
+.dana-lab-capabilities__category--green {
+  color: var(--color-accent-secondary);
+}
+
+.dana-lab-capabilities__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.dana-lab-capabilities__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 1200px) {
+  .dana-lab-capabilities__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 810px) {
+  .dana-lab-capabilities {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .dana-lab-capabilities__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .dana-lab-capabilities__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dana-lab-capabilities__card:hover {
+    transform: none;
+  }
+
+  .dana-lab-capabilities__icon {
+    animation: none;
+  }
+
+  .dana-lab-capabilities__card:hover .dana-lab-capabilities__icon {
+    animation: none;
+  }
+
+  .dana-lab-capabilities__card:hover .dana-lab-capabilities__icon-wrap {
+    transform: none;
+  }
+}

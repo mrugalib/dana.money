@@ -1,0 +1,150 @@
+/*
+  Dana AI — Hero visual, OPTION B styles (see hero-visual-chatbubble.html for context).
+  Each bubble loops on its own 6s timeline with a staggered start, so the sequence
+  reads as: assistant message -> user reply -> typing indicator -> repeat.
+*/
+
+.chat-mock {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 9 / 19.5;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-visual);
+  overflow: hidden;
+  padding: var(--space-6) var(--space-2) var(--space-2);
+}
+
+.chat-mock__notch {
+  position: absolute;
+  top: var(--space-1);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 18px;
+  /* literal black, not --color-bg-base: this mimics a phone's physical notch cutout, which is
+     always black regardless of page theme — it stopped being able to borrow bg-base's value
+     once bg-base flipped from black to white in the Finorix light-mode extraction */
+  background-color: #000000;
+  border-radius: var(--radius-pill);
+}
+
+.chat-mock__screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--space-2);
+  height: 100%;
+}
+
+.chat-mock__bubble {
+  max-width: 82%;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md-mobile);
+  font-weight: 600;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: chat-bubble-in 6s var(--ease-out) infinite;
+}
+
+.chat-mock__bubble--assistant {
+  align-self: flex-start;
+  background-color: var(--color-bg-glass);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+.chat-mock__bubble--user {
+  align-self: flex-end;
+  background-color: var(--color-primary); /* matches the primary CTA fill — not lime, see design.md §2 */
+  color: var(--on-primary);
+}
+
+.chat-mock__typing {
+  align-self: flex-start;
+  display: flex;
+  gap: 4px;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-glass);
+  border: 1px solid var(--color-border-subtle);
+  opacity: 0;
+  animation: chat-bubble-in 6s var(--ease-out) infinite;
+}
+
+.chat-mock__typing span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+  animation: chat-typing-dot 1s ease-in-out infinite;
+}
+
+.chat-mock__typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+.chat-mock__typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.chat-mock__bubble--1 {
+  animation-delay: 0s;
+}
+.chat-mock__bubble--2 {
+  animation-delay: 1.2s;
+}
+.chat-mock__bubble--3 {
+  animation-delay: 2.4s;
+}
+
+@keyframes chat-bubble-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  8% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  85%,
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes chat-typing-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+/* Reduced motion: freeze on one legible static frame instead of looping (design.md §6) */
+@media (prefers-reduced-motion: reduce) {
+  .chat-mock__bubble--1,
+  .chat-mock__bubble--2 {
+    animation: none;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .chat-mock__typing {
+    display: none;
+  }
+}

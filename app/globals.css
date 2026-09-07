@@ -1,0 +1,250 @@
+/*
+  Dana AI — Global styles.
+  Single source of truth for design.md's tokens (§2 Color, §3 Typography, §4 Spacing/Grid,
+  §6 Motion) plus the shared, component-agnostic primitives (buttons §5.2, badge §5.3,
+  scroll-reveal §6) that many components reuse rather than re-declaring. Component-specific
+  styles live in their own CSS file next to the component and are imported directly into it.
+*/
+
+:root {
+  /* ---- 2. Color System (verified Finorix export — full light theme, see design.md §9) ---- */
+  --color-bg-base:        #FFFFFF;
+  --color-bg-elevated:    #F8F8F8; /* neutral card surface, not a bold color block */
+  --color-bg-glass:       rgba(0, 0, 0, 0.04);
+  --color-border-subtle:  rgba(0, 0, 0, 0.08);
+  --color-border-glow:    rgba(27, 58, 28, 0.35); /* interactive states only (hover/focus) */
+
+  --color-text-primary:   #000000;
+  --color-text-secondary: #1B3A1C; /* solid dark green, not a translucent tint */
+  --color-text-muted:     rgba(0, 0, 0, 0.42); /* fails AA at normal sizes — icons/decoration only */
+
+  /* Removed the previous electric-blue (#0000EE) accent site-wide (design.md §9) — it read as an
+     off-brand "deep blueish" system next to the green/lime identity everywhere it surfaced
+     (interactive borders/icons on the homepage, and especially the Dana Lab pages' hero/CTA/
+     lending banners). --color-accent-primary/--color-accent-secondary are consumed as an
+     *alternating pair* in several components (FeatureGrid, BlogCard, DanaLabCapabilities'
+     "blue"/"green" category cards) — collapsing them to the same green would erase that
+     distinction, so accent-primary becomes solid black (reusing --color-text-primary's existing
+     value, not a new color) instead of blue, keeping two on-brand, high-contrast, clearly
+     distinct accents: neutral black + brand green. Gradients/glows below swap their blue stop for
+     the same black, for the same reason. */
+  --color-accent-primary:   #000000; /* black — was electric blue */
+  --color-accent-secondary: #1B3A1C; /* dark green */
+
+  --color-primary: #1B3A1C; /* solid brand fill: buttons, final-CTA banner, other bold blocks */
+  --on-primary:    #FFFFFF; /* required text color for anything filled with --color-primary */
+
+  --color-surface-highlight: #B9E848; /* lime — badges/eyebrow pills/chips ONLY, never general surfaces */
+
+  --gradient-brand: linear-gradient(135deg, #000000 0%, #1B3A1C 100%);
+  --gradient-glow:  radial-gradient(circle at 50% 0%, rgba(27, 58, 28, 0.12), transparent 60%);
+
+  --color-success: #4ADE80;
+  --color-warning: #FBBF24;
+  --color-danger:  #F87171;
+
+  /* ---- 3. Typography ---- */
+  --font-display: 'AirbnbCereal_W_Bd', sans-serif; /* proprietary, no licensed file — falls back to sans-serif, see §9 */
+  --font-body: 'Manrope', sans-serif;
+
+  --text-display-xl: 52px;
+  --text-display-xl-mobile: 32px;
+  --text-display-lg: 42px;
+  --text-display-lg-mobile: 28px;
+  --text-display-md: 28px;
+  --text-display-md-mobile: 22px;
+  --text-body-lg: 16px;
+  --text-body-lg-mobile: 16px;
+  --text-body-md: 16px;
+  --text-body-md-mobile: 16px;
+  --text-caption: 13px;
+
+  /* ---- 4. Spacing (4px base unit) & Grid ---- */
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 40px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-9: 72px;
+  --space-10: 80px;
+  --space-15: 120px;
+  --space-12: 12px;
+  --space-20: 20px;
+  --space-28: 28px;
+  --space-100: 100px;
+
+  --content-max-width: 1280px;
+  --gutter-mobile: 24px;
+  --gutter-desktop: 64px;
+  --breakpoint-tablet: 810px;   /* documented, not usable inside @media (no var() support there) */
+  --breakpoint-desktop: 1200px;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-pill: 9999px;
+
+  /* ---- 6. Motion ---- */
+  --ease-out: ease; /* base easing per verified export; name kept for compatibility */
+  --duration-reveal: 480ms;
+  --duration-accordion: 250ms;
+  --duration-hover: 200ms;
+
+  /* ---- Elevation (System Extension — see design.md §9) ---- */
+  --shadow-card:       0 4px 40px rgba(0, 0, 0, 0.02);
+  --shadow-card-hover: 0 12px 40px rgba(0, 0, 0, 0.08);
+  --shadow-elevated:   var(--shadow-card);
+  --shadow-visual:     0 24px 48px rgba(0, 0, 0, 0.18);
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* Anchor-link targets (#features, #how-it-works, #rewards, #get-dana-ai, etc.) would otherwise
+     land flush behind the sticky navbar and clip the section heading. Matches navbar bar height
+     at each tier: 80px desktop, 64px mobile below 810px (design.md §9). */
+  scroll-padding-top: calc(var(--space-10) + var(--space-1));
+}
+
+@media (max-width: 810px) {
+  html {
+    scroll-padding-top: calc(var(--space-8) + var(--space-1));
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+}
+
+/* =====================================================================================
+   Shared button primitives (design.md §5.2) — see styles/buttons.css history.
+   ===================================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1;
+  border-radius: var(--radius-pill);
+  padding: 16px 32px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--duration-hover) var(--ease-out),
+    box-shadow var(--duration-hover) var(--ease-out),
+    border-color var(--duration-hover) var(--ease-out),
+    color var(--duration-hover) var(--ease-out);
+}
+
+.btn--primary {
+  color: var(--on-primary);
+  background-color: var(--color-primary);
+  border: none;
+}
+
+.btn--primary:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 24px var(--color-border-glow);
+}
+
+.btn--primary:focus-visible {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 3px;
+}
+
+.btn--secondary {
+  color: var(--color-text-primary);
+  background: transparent;
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+.btn--secondary:hover {
+  border-color: var(--color-border-glow);
+}
+
+.btn--secondary:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 3px;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition-duration: 1ms;
+  }
+
+  .btn--primary:hover {
+    transform: none;
+  }
+}
+
+/* =====================================================================================
+   Eyebrow / Badge Pill (design.md §5.3)
+   ===================================================================================== */
+
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 8px 16px;
+  background-color: var(--color-bg-glass);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.pill-badge__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-surface-highlight);
+  flex-shrink: 0;
+}
+
+/* =====================================================================================
+   Shared scroll-reveal primitive (design.md §6) — see components/ScrollRevealInit.tsx,
+   which observes every [data-reveal] element once, mounted from the root layout.
+   ===================================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--duration-reveal) var(--ease-out), transform var(--duration-reveal) var(--ease-out);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    transition: opacity 300ms linear;
+    transform: none;
+  }
+}

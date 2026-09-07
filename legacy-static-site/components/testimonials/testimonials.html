@@ -1,0 +1,88 @@
+<!--
+  Dana AI — Testimonial Carousel (design.md §8 site map item 11; component spec §5.10)
+
+  FLAG: no real public customer testimonials exist on the live site. Per SKILL.md rule 4 and the
+  anti-patterns list, no quote, name, or star rating is invented here — fabricated testimonials are
+  a much larger trust problem for a fintech page than fabricated stats (a fake customer voice
+  attributed to a fake person is a different order of deceptive than an empty stat). Both slides
+  below use unmistakably bracketed placeholder text ("[Customer Name]", not a plausible invented
+  name), an unfilled/outline star state (no specific rating claimed), a neutral generic avatar
+  (not a fabricated "customer photo"), and a visible on-card "Sample content" tag — not just a code
+  comment — so this can't be mistaken for a real testimonial even if it accidentally shipped as-is.
+  Replace both slides with real customer testimonials before launch.
+
+  Card visual language reused verbatim from the feature grid / experts cards (§5.6 tokens):
+  --color-bg-elevated fill, --color-border-subtle border, --shadow-card. No hover-lift here (this
+  is a single carousel viewport, not a grid of independent cards), so no reveal/hover cascade-
+  collision risk — the whole carousel gets one scroll-reveal via the shared [data-reveal].
+
+  Carousel mechanism: auto-advancing cross-fade + manual dot controls, reusing the exact pattern
+  already established in ai-advisor.js's fallback carousel and hero-visual-chatbubble.css's mock —
+  not a new pattern. --color-accent-primary (blue) is used only for the filled-star state (not yet
+  triggered, since no rating exists) and the active dot — never for the card background.
+-->
+<section class="testimonials" id="testimonials" aria-label="Testimonials">
+  <div class="testimonials__container">
+    <span class="pill-badge">
+      <span class="pill-badge__dot" aria-hidden="true"></span>
+      Trusted by Users
+    </span>
+    <h2 class="testimonials__headline">What People Are Saying</h2>
+
+    <div class="testimonials__carousel" data-carousel data-reveal>
+      <span class="testimonials__sample-tag">Sample content — not a real testimonial</span>
+
+      <div class="testimonials__track">
+        <div class="testimonials__card is-active" data-slide>
+          <div class="testimonials__stars" aria-label="Rating not yet available">
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="testimonials__quote">
+            "[Sample testimonial quote will go here — replace with a real customer quote before
+            launch.]"
+          </p>
+          <div class="testimonials__person">
+            <div class="testimonials__avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.25" stroke="currentColor" stroke-width="1.75"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="testimonials__name">[Customer Name]</div>
+              <div class="testimonials__role">[Role / City]</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonials__card" data-slide>
+          <div class="testimonials__stars" aria-label="Rating not yet available">
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+            <svg class="testimonials__star" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 2l2.35 5.1 5.65.6-4.2 3.8 1.2 5.5L10 14.9l-5 3.1 1.2-5.5-4.2-3.8 5.65-.6L10 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </div>
+          <p class="testimonials__quote">
+            "[Second sample testimonial — swap in real customer feedback before this ships.]"
+          </p>
+          <div class="testimonials__person">
+            <div class="testimonials__avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="9" r="3.25" stroke="currentColor" stroke-width="1.75"/><path d="M5 20c0-3.87 3.13-6 7-6s7 2.13 7 6" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="testimonials__name">[Customer Name]</div>
+              <div class="testimonials__role">[Role / City]</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonials__dots" role="tablist" aria-label="Testimonial navigation">
+        <button type="button" class="testimonials__dot is-active" data-dot="0" role="tab" aria-selected="true" aria-label="Show testimonial 1 of 2"></button>
+        <button type="button" class="testimonials__dot" data-dot="1" role="tab" aria-selected="false" aria-label="Show testimonial 2 of 2"></button>
+      </div>
+    </div>
+  </div>
+</section>

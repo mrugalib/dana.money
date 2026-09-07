@@ -1,0 +1,111 @@
+/*
+  Dana Labs — Consultation CTA styles.
+  Dark banner using --gradient-brand (black -> dark green, was blue -> dark green — see globals.css
+  §9 note on removing the site's electric-blue accent), same light-on-dark treatment already
+  established for the homepage Hero: white text, lime-filled primary button (a pre-existing
+  sanctioned pairing per design.md §2, 14.7:1) rather than the default dark-green .btn--primary,
+  which would nearly vanish against this background — same reasoning already documented in
+  Hero.css and flagged as an open issue in FinalCTA.css, resolved here from the start instead of
+  shipped broken.
+*/
+
+.dana-lab-cta {
+  padding: var(--space-15) var(--gutter-desktop);
+  background: var(--gradient-brand);
+  text-align: center;
+}
+
+.dana-lab-cta__container {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dana-lab-cta__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.42px;
+  color: var(--on-primary);
+}
+
+.dana-lab-cta__subhead {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dana-lab-cta__benefits {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-4);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+}
+
+.dana-lab-cta__benefit {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--on-primary);
+}
+
+.dana-lab-cta__check {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-surface-highlight);
+}
+
+.dana-lab-cta__button {
+  margin-top: var(--space-2);
+  background-color: var(--color-surface-highlight);
+  color: var(--color-text-primary);
+  border: none;
+}
+
+.dana-lab-cta__button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 24px rgba(185, 232, 72, 0.45);
+}
+
+.dana-lab-cta__button:focus-visible {
+  outline: 2px solid var(--on-primary);
+  outline-offset: 3px;
+}
+
+@media (max-width: 810px) {
+  .dana-lab-cta {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .dana-lab-cta__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.1;
+  }
+
+  .dana-lab-cta__benefits {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dana-lab-cta__button:hover {
+    transform: none;
+  }
+}

@@ -1,0 +1,90 @@
+<!--
+  Dana AI — Sticky Navbar (design.md §5.1, §5.2)
+  Transparent by default; switches to glass fill (--color-bg-glass) + backdrop blur after 40px
+  scroll (handled by navbar.js). Collapses to a hamburger-triggered full-screen glass menu on
+  mobile, including the About dropdown (rendered as an inline expandable group there).
+-->
+<header class="navbar" id="navbar" data-navbar>
+  <div class="navbar__container">
+    <a href="/" class="navbar__logo" aria-label="Dana AI — home">
+      <img src="/assets/dana_logo.svg" width="120" height="45" alt="Dana AI" />
+    </a>
+
+    <nav class="navbar__nav" aria-label="Primary">
+      <ul class="navbar__links">
+        <li><a href="#features" class="navbar__link">Solutions</a></li>
+        <li><a href="#how-it-works" class="navbar__link">How it works</a></li>
+        <li><a href="#rewards" class="navbar__link">Learn and Earn</a></li>
+        <li><a href="/lab" class="navbar__link">Dana Labs</a></li>
+        <li><a href="/blog" class="navbar__link">Blog</a></li>
+        <li><a href="/pricing" class="navbar__link">Pricing</a></li>
+        <li class="navbar__dropdown" data-dropdown>
+          <button
+            type="button"
+            class="navbar__link navbar__dropdown-trigger"
+            id="about-trigger"
+            aria-haspopup="true"
+            aria-expanded="false"
+            aria-controls="about-menu"
+            data-dropdown-trigger
+          >
+            About
+            <svg class="navbar__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+              <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <ul class="navbar__dropdown-menu" id="about-menu" role="menu" aria-labelledby="about-trigger" data-dropdown-menu>
+            <li role="none"><a role="menuitem" href="/team" class="navbar__dropdown-link">Team</a></li>
+            <li role="none"><a role="menuitem" href="/career" class="navbar__dropdown-link">Career</a></li>
+            <li role="none"><a role="menuitem" href="/media" class="navbar__dropdown-link">Media</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+
+    <a href="#get-dana-ai" class="btn btn--primary navbar__cta">Get Dana AI</a>
+
+    <button
+      type="button"
+      class="navbar__hamburger"
+      aria-label="Open menu"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      data-menu-trigger
+    >
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile: full-screen glass menu -->
+  <div class="mobile-menu" id="mobile-menu" data-mobile-menu inert>
+    <ul class="mobile-menu__links">
+      <li><a href="#features" class="mobile-menu__link" data-menu-link>Solutions</a></li>
+      <li><a href="#how-it-works" class="mobile-menu__link" data-menu-link>How it works</a></li>
+      <li><a href="#rewards" class="mobile-menu__link" data-menu-link>Learn and Earn</a></li>
+      <li><a href="/lab" class="mobile-menu__link" data-menu-link>Dana Labs</a></li>
+      <li><a href="/blog" class="mobile-menu__link" data-menu-link>Blog</a></li>
+      <li><a href="/pricing" class="mobile-menu__link" data-menu-link>Pricing</a></li>
+      <li class="mobile-menu__group">
+        <button
+          type="button"
+          class="mobile-menu__link mobile-menu__group-trigger"
+          aria-expanded="false"
+          aria-controls="about-mobile-panel"
+          data-mobile-group-trigger
+        >
+          About
+          <svg class="navbar__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <ul class="mobile-menu__submenu" id="about-mobile-panel" data-mobile-group-panel>
+          <li><a href="/team" class="mobile-menu__sublink" data-menu-link>Team</a></li>
+          <li><a href="/career" class="mobile-menu__sublink" data-menu-link>Career</a></li>
+          <li><a href="/media" class="mobile-menu__sublink" data-menu-link>Media</a></li>
+        </ul>
+      </li>
+    </ul>
+    <a href="#get-dana-ai" class="btn btn--primary mobile-menu__cta" data-menu-link>Get Dana AI</a>
+  </div>
+</header>

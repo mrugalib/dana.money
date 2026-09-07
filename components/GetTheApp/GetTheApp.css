@@ -1,0 +1,131 @@
+/*
+  Dana AI — Get The App styles.
+  Spec traced to design.md:
+    §8 Site map  — item 14's real content (distinct from the generic Final CTA banner, §5.13).
+    §3 Typography— headline at --text-display-xl (matches the hero's H1 scale for maximum impact —
+                   this isn't the page's semantic H1, hero already owns that, but is sized to match
+                   for the same "final big push" visual weight the reference layout calls for).
+    §2 Color     — white section background; --color-primary solid fill for the two store buttons
+                   (this section's primary-weighted pairing, per explicit instruction).
+    §7 Imagery   — --gradient-glow behind the phone visual — one of the two places (hero + CTA)
+                   this is sanctioned; this section is treated as CTA-adjacent (a download-
+                   conversion moment), see design.md §9.
+    §4 Spacing   — 120px/72px section rhythm, 24px grid gutters.
+    §6 Motion    — scroll-reveal via the shared [data-reveal] primitive, single block (matches
+                   problem-solution/final-cta's approach — one reveal unit, nothing to stagger).
+
+  Visual: Get-The_App-Screen.webp is self-framed (transparent corners around an already-baked-in
+  phone bezel, confirmed by sampling pixel alpha) — same treatment as hero.gif: a plain <img> with
+  a drop-shadow, no separate CSS bezel composited on top.
+*/
+
+.get-the-app {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.get-the-app__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.get-the-app__content {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.get-the-app__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.52px;
+  color: var(--color-text-primary);
+}
+
+.get-the-app__line {
+  display: block;
+}
+
+.get-the-app__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+  max-width: 460px;
+}
+
+.get-the-app__buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.get-the-app__store-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.get-the-app__visual {
+  grid-column: 7 / span 6;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.get-the-app__glow {
+  position: absolute;
+  inset: -15% -10%;
+  background: var(--gradient-glow);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.get-the-app__screenshot {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  filter: drop-shadow(var(--shadow-visual));
+}
+
+@media (max-width: 810px) {
+  .get-the-app {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .get-the-app__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .get-the-app__content,
+  .get-the-app__visual {
+    grid-column: 1 / -1;
+  }
+
+  .get-the-app__headline {
+    font-size: var(--text-display-xl-mobile);
+    line-height: 1.1;
+  }
+
+  .get-the-app__screenshot {
+    max-width: 260px;
+  }
+}

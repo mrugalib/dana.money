@@ -1,0 +1,144 @@
+/*
+  Dana AI — Rewards / Learn & Earn styles.
+  Spec traced to design.md:
+    §5.7 Proof     — alternating proof block #2: text-left / visual-right (AI Advisor, block #1,
+                     was visual-left/text-right — see rewards.html header comment).
+    §5.3 Badge     — eyebrow pill reused verbatim (styles/badge.css).
+    §3 Typography  — headline --text-display-lg (Section H2), solid --color-text-primary (no
+                     gradient — kept reserved for hero/numbered-process). Body --text-body-lg,
+                     --color-text-secondary.
+    §2 Color       — --color-surface-highlight (lime) used as the FILL for the two illustration
+                     cards specifically, not the section background — explicitly sanctioned here
+                     since this section is playful by nature, still confined to small chip-scale
+                     surfaces per §2's restriction.
+    §4 Spacing     — 120px/72px section rhythm, --radius-lg (24px, matches other "large" visual
+                     cards like the chat-mock/phone-bezel treatments elsewhere).
+    §6 Motion      — scroll-triggered reveal via the shared [data-reveal] primitive, staggered.
+                     No hover-interactive transform on these cards, so no reveal/hover cascade
+                     collision risk (unlike the feature grid) — data-reveal goes directly on
+                     .rewards__illustration-card.
+*/
+
+.rewards {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.rewards__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.rewards__content {
+  grid-column: 1 / span 6;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.rewards__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.rewards__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+  max-width: 480px;
+}
+
+.rewards__visual {
+  grid-column: 7 / span 6;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.rewards__illustrations {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.rewards__illustration-card {
+  flex: 1;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  background-color: var(--color-surface-highlight);
+  border: 2px dashed var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.rewards__illustration-card:nth-child(1) { transition-delay: 0ms; }
+.rewards__illustration-card:nth-child(2) { transition-delay: 100ms; }
+
+/* second card sits slightly lower for a playful, non-mechanical alignment */
+.rewards__illustration-card:nth-child(2) {
+  margin-top: var(--space-6);
+}
+
+.rewards__illustration-icon {
+  width: 56px;
+  height: 56px;
+  color: var(--color-text-primary);
+}
+
+.rewards__illustration-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.rewards__placeholder-note {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 810px) {
+  .rewards {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .rewards__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .rewards__content,
+  .rewards__visual {
+    grid-column: 1 / -1;
+  }
+
+  .rewards__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .rewards__illustration-card:nth-child(2) {
+    margin-top: var(--space-6);
+  }
+}

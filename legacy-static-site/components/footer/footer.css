@@ -1,0 +1,236 @@
+/*
+  Dana AI — Footer styles.
+  Spec traced to design.md:
+    §5.14 Footer  — multi-column: logo + mission + newsletter, then link columns (Product, About,
+                    Information, Contact), social icons, copyright. Compliance-badge row omitted —
+                    no such assets exist, see footer.html header comment / design.md §9.
+    §2 Color      — --color-bg-elevated (#F8F8F8) background for separation from the white page
+                    body. Considered a darker neutral for more contrast, but the documented palette
+                    has no third neutral between bg-elevated and solid dark blocks like
+                    --color-primary — introducing one would violate "stay within the documented
+                    palette, don't introduce a new neutral," so bg-elevated is the only compliant
+                    choice, see design.md §9.
+    §4 Spacing    — 120px/72px section rhythm (top only, footer is the last thing on the page),
+                    24px grid gutters.
+    §3 Typography — column titles --text-caption (uppercase, matches the eyebrow-label treatment),
+                    links/mission --text-body-md, --color-text-secondary.
+
+  Newsletter input/button reuse the shared button system (.btn--primary) and standard form-field
+  conventions (border-subtle outline, radius-pill to match the pill-shaped button next to it).
+*/
+
+.footer {
+  background-color: var(--color-bg-elevated);
+  padding: var(--space-15) var(--gutter-desktop) var(--space-6);
+}
+
+.footer__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) 2fr;
+  gap: var(--space-9);
+}
+
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Same dark-chip treatment as the navbar logo (--color-primary) — the real logo's wordmark is
+   white, authored for a dark background; the footer's own background (--color-bg-elevated) is
+   light, so it needs the same chip to stay legible. See design.md §9. */
+.footer__logo {
+  display: inline-flex;
+  padding: 8px 12px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-sm);
+}
+
+.footer__logo img {
+  display: block;
+  height: 24px;
+  width: auto;
+}
+
+.footer__mission {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1.38;
+  color: var(--color-text-secondary);
+  max-width: 320px;
+}
+
+.footer__newsletter {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.footer__newsletter-label {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.footer__newsletter-row {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.footer__newsletter-input {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-base);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+}
+
+.footer__newsletter-input::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+}
+
+.footer__newsletter-input:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.footer__newsletter-submit {
+  padding: 12px 20px;
+  font-size: var(--text-body-md);
+  white-space: nowrap;
+}
+
+.footer__social {
+  display: flex;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.footer__social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--space-5); /* 40px — bumped from 36px, below the ~40-44px touch-target comfort floor */
+  height: var(--space-5);
+  border-radius: 50%;
+  background-color: var(--color-bg-base);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  transition: color var(--duration-hover) ease, border-color var(--duration-hover) ease;
+}
+
+.footer__social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer__social-link:hover {
+  color: var(--color-accent-primary);
+  border-color: var(--color-border-glow);
+}
+
+.footer__social-link:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.footer__links {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.footer__column-title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.footer__column-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer__column-list a {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.footer__column-list a:hover {
+  color: var(--color-text-primary);
+}
+
+.footer__column-list a:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.footer__bottom {
+  margin-top: var(--space-9);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.footer__copyright {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+/* Tablet tier (810-1200px, design.md §4): the top-level 2-col split (brand + links) squeezes
+   footer__links' 4 columns to as little as ~75px each here — real cramping (e.g. "Terms &
+   Conditions" needs ~160px on one line), not a cosmetic nit. 2 columns fixes it; the top-level
+   brand/links split itself still has room to stay side-by-side at this tier. See design.md §9. */
+@media (max-width: 1200px) {
+  .footer__links {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-3);
+  }
+}
+
+@media (max-width: 810px) {
+  .footer {
+    padding: var(--space-9) var(--gutter-mobile) var(--space-6);
+  }
+
+  .footer__top {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .footer__newsletter-row {
+    flex-direction: column;
+  }
+}

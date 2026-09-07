@@ -1,0 +1,91 @@
+/*
+  Dana AI — Stat / Metrics Section styles.
+  Spec traced to design.md:
+    §5.9 Metrics  — large display-type numbers, count-up animation on scroll-into-view, one-line
+                    label each, --color-text-secondary. Mandatory, not optional.
+    §3 Typography — --text-display-xl explicitly allows "stat counter" use, not just Hero H1 — used
+                    here at full size for maximum "large display type" impact.
+    §2 Color      — white section background (distinct from the boxed-card treatment used for
+                    Feature Grid/Experts — a plain background matches Finorix's "key metrics" style
+                    reference, which shows numbers directly on the page, not in cards).
+                    --color-accent-primary (blue, solid — not gradient, which stays reserved for
+                    hero/numbered-process) for the numerals: chosen over plain black so this
+                    mandatory showcase block reads with some visual weight rather than blending in
+                    as plain text.
+    §4 Spacing    — 120px/72px section rhythm, 24px grid gutters.
+    §6 Motion     — count-up ~1.2s ease on scroll-into-view (see metrics.js); fade+translateY
+                    reveal for the whole item via the shared [data-reveal] primitive, staggered.
+                    No hover-interactive transform on these items, so no reveal cascade-collision
+                    risk (same reasoning as How It Works / Rewards).
+*/
+
+.metrics {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.metrics__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.metrics__headline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.metrics__grid {
+  margin-top: var(--space-15);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.metrics__item:nth-child(1) { transition-delay: 0ms; }
+.metrics__item:nth-child(2) { transition-delay: 100ms; }
+.metrics__item:nth-child(3) { transition-delay: 200ms; }
+.metrics__item:nth-child(4) { transition-delay: 300ms; }
+
+.metrics__value {
+  font-family: var(--font-display);
+  font-size: var(--text-display-xl);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -0.52px;
+  color: var(--color-accent-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.metrics__label {
+  margin-top: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 810px) {
+  .metrics {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .metrics__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .metrics__grid {
+    margin-top: var(--space-9);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6) var(--space-2);
+  }
+
+  .metrics__value {
+    font-size: var(--text-display-xl-mobile);
+  }
+}

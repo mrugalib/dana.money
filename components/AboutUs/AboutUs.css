@@ -1,0 +1,115 @@
+/*
+  Dana AI — About Us section styles (first pass: copy only, no grid/imagery yet).
+  Follows the same intro-block pattern as ProblemSolution.css:
+    §3 Typography — headline uses --text-display-lg, solid --color-text-primary; body uses
+                    --text-body-lg / --color-text-secondary (readable muted copy).
+    §4 Spacing    — 120px/72px section rhythm; container matches every sibling section's own
+                    max-width/margin pattern.
+    §6 Motion     — scroll-triggered reveal via the shared [data-reveal] primitive.
+*/
+
+.about-us {
+  padding: var(--space-15) var(--gutter-desktop);
+  background-color: var(--color-bg-base);
+}
+
+.about-us__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.about-us__intro {
+  grid-column: 1 / span 7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-3);
+}
+
+.about-us__visual {
+  grid-column: 8 / span 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-us__gif {
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  object-fit: contain;
+}
+
+.about-us__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.about-us__line {
+  display: block;
+}
+
+.about-us__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.16px;
+  color: var(--color-text-secondary);
+}
+
+.about-us__cta {
+  margin-top: var(--space-1);
+}
+
+/* ---- Tablet: keep two columns but give the visual less width ---- */
+@media (max-width: 1200px) {
+  .about-us__intro {
+    grid-column: 1 / span 7;
+  }
+
+  .about-us__visual {
+    grid-column: 8 / span 5;
+  }
+
+  .about-us__gif {
+    max-width: 220px;
+  }
+}
+
+/* ---- Mobile: stacked, image below copy ---- */
+@media (max-width: 810px) {
+  .about-us {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .about-us__container {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .about-us__intro,
+  .about-us__visual {
+    grid-column: 1 / -1;
+  }
+
+  .about-us__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .about-us__gif {
+    max-width: 200px;
+  }
+}

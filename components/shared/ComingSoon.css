@@ -1,0 +1,50 @@
+/*
+  Dana AI — Coming Soon holding block (System Extension, design.md §9).
+  Used only for routes with no real content anywhere in the project (/team, /lab) — an honest
+  placeholder rather than fabricated bios/feature copy, matching this project's established
+  precedent (Rewards' illustration caption, pricing's disabled "Coming Soon" buttons) of visibly
+  flagging pending content instead of inventing it.
+*/
+
+.coming-soon {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--space-15) var(--gutter-desktop);
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.coming-soon__heading {
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.coming-soon__body {
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  color: var(--color-text-secondary);
+  max-width: 480px;
+  margin: 0;
+}
+
+@media (max-width: 810px) {
+  .coming-soon {
+    padding: var(--space-9) var(--gutter-mobile);
+    min-height: 40vh;
+  }
+
+  .coming-soon__heading {
+    font-size: var(--text-display-lg-mobile);
+  }
+}

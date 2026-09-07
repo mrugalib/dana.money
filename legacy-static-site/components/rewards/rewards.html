@@ -1,0 +1,63 @@
+<!--
+  Dana AI — Rewards / Learn & Earn (design.md §8 site map item 8; layout pattern §5.7)
+  Proof block #2 in the alternating-proof sequence. AI Advisor (proof block #1) was
+  visual-left/text-right, so this alternates to text-LEFT / visual-RIGHT.
+
+  Real content used verbatim: title "Making Finance Fun, Simple, and Worth Your Time".
+
+  Mechanic kept to exactly what's supported by the team-page description + the two real
+  gamification assets: short educational video content earns cashback, claimed via the spin
+  wheel / gift box. Not inventing any other gamification mechanic beyond this.
+
+  ASSETS: giftbox.png/spinwheel.png (original or updated) don't exist anywhere in the project —
+  searched assets/ and the whole repo. Built with clearly-labeled CSS/SVG illustration placeholders
+  in their place (not fabricated as if real) — swap them for the real files at
+  /assets/giftbox.png and /assets/spinwheel.png once available. See design.md §9.
+
+  Lime (--color-surface-highlight) is used as the fill for these two illustration cards
+  specifically (not the section background) — explicitly called out as a good fit here since this
+  section is playful by nature, per design.md §2's "confined to small chip-scale surfaces" rule.
+-->
+<section class="rewards" id="rewards" aria-label="Rewards / Learn and Earn">
+  <div class="rewards__container">
+    <div class="rewards__content">
+      <span class="pill-badge">
+        <span class="pill-badge__dot" aria-hidden="true"></span>
+        Learn &amp; Earn
+      </span>
+      <h2 class="rewards__headline">Making Finance Fun, Simple, and Worth Your Time</h2>
+      <p class="rewards__body">
+        Watch short, bite-sized videos on managing your money — then spin the wheel or open your
+        gift box to claim real cashback for what you've learned.
+      </p>
+    </div>
+
+    <div class="rewards__visual">
+      <div class="rewards__illustrations">
+        <div class="rewards__illustration-card" data-reveal>
+          <svg class="rewards__illustration-icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <rect x="8" y="26" width="48" height="30" rx="2" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/>
+            <rect x="4" y="16" width="56" height="12" rx="2" stroke="currentColor" stroke-width="2.25" stroke-linejoin="round"/>
+            <path d="M32 16v40" stroke="currentColor" stroke-width="2.25"/>
+            <path d="M32 16c-4-10-20-10-20 0" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/>
+            <path d="M32 16c4-10 20-10 20 0" stroke="currentColor" stroke-width="2.25" stroke-linecap="round"/>
+          </svg>
+          <span class="rewards__illustration-label">Gift Box</span>
+        </div>
+
+        <div class="rewards__illustration-card" data-reveal>
+          <svg class="rewards__illustration-icon" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+            <circle cx="32" cy="34" r="22" stroke="currentColor" stroke-width="2.25"/>
+            <path d="M32 12v44M10 34h44M17 19l30 30M47 19l-30 30" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="32" cy="34" r="3.5" fill="currentColor"/>
+            <path d="M32 6l6 9h-12l6-9Z" fill="currentColor"/>
+          </svg>
+          <span class="rewards__illustration-label">Spin Wheel</span>
+        </div>
+      </div>
+      <p class="rewards__placeholder-note">
+        Illustration placeholders — swap for the real giftbox.png / spinwheel.png once available.
+      </p>
+    </div>
+  </div>
+</section>

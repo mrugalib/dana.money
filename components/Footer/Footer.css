@@ -1,0 +1,171 @@
+/*
+  Dana AI — Footer styles.
+  Recreates the Finorix Framer template's footer layout (see Footer.tsx header for the full
+  content-mapping rationale): a giant decorative wordmark (Dana's real logo, dana_logo_dark.svg)
+  on the left, three link columns on the right, a divider, then a two-sided bottom bar. Reuses
+  this app's existing tokens throughout (--color-bg-elevated, --space-*, --text-*,
+  --color-border-subtle).
+*/
+
+.footer {
+  background-color: var(--color-bg-elevated);
+  padding: var(--space-9) var(--gutter-desktop) var(--space-6);
+  overflow: hidden;
+}
+
+.footer__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: var(--space-6);
+}
+
+/* ---- Giant wordmark (Dana's real logo, black variant) ----
+   Height scales with viewport (clamp + vw) so it always fills the available left column without
+   overflowing horizontally; .footer's own overflow:hidden clips it cleanly at very narrow widths
+   instead of causing page-wide horizontal scroll. Same clamp() values as the earlier re-typeset
+   text version, so the footprint this occupies is unchanged. */
+.footer__wordmark {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-width: 0;
+  height: clamp(72px, 15vw, 240px);
+  pointer-events: none;
+}
+
+.footer__wordmark-logo {
+  height: 100%;
+  width: auto;
+  display: block;
+
+  /* Flat, clearly-visible watermark tint — an earlier version combined a lower opacity with a
+     mask cut to a thin diagonal band, which left the logo reading as almost entirely invisible
+     except for one faint sliver. Flat opacity here so the whole mark reads at a glance, while
+     still sitting well below the link/copyright text's contrast so it stays background-decorative. */
+  opacity: 0.35;
+}
+
+.footer__links {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.footer__column-title {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.footer__column-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.footer__column-list a {
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-hover) ease;
+}
+
+.footer__column-list a:hover {
+  color: var(--color-text-primary);
+}
+
+.footer__column-list a:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+.footer__bottom {
+  margin-top: var(--space-6);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.footer__copyright {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.footer__contact {
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--duration-hover) ease;
+}
+
+.footer__contact:hover {
+  color: var(--color-text-primary);
+}
+
+.footer__contact:focus-visible {
+  outline: 2px solid var(--color-border-glow);
+  outline-offset: 2px;
+}
+
+/* ---- Tablet (≤1200px): stack wordmark above the link row, columns stay side by side ---- */
+@media (max-width: 1200px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__wordmark {
+    height: clamp(56px, 20vw, 160px);
+  }
+
+  .footer__links {
+    gap: var(--space-4);
+  }
+}
+
+/* ---- Mobile (≤810px): link columns wrap to 2 across, bottom bar stacks ---- */
+@media (max-width: 810px) {
+  .footer {
+    padding: var(--space-8) var(--gutter-mobile) var(--space-6);
+  }
+
+  .footer__top {
+    gap: var(--space-4);
+  }
+
+  .footer__links {
+    flex-wrap: wrap;
+    row-gap: var(--space-4);
+  }
+
+  .footer__column {
+    flex: 1 1 40%;
+  }
+
+  .footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+}
+

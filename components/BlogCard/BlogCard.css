@@ -1,0 +1,226 @@
+/*
+  Dana Blog — card styles. Reuses the app's card/elevation tokens (--shadow-card,
+  --color-bg-elevated, --radius-md/lg) plus the enhanced hover language already established for
+  FeatureGrid/DanaLabCapabilities (lift + accent border + icon-badge-style motion), applied here
+  to the "Read article" arrow instead of a feature icon.
+*/
+
+.blog-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: transform var(--duration-hover) ease, box-shadow var(--duration-hover) ease,
+    border-color var(--duration-hover) ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.blog-card--blue:hover {
+  border-color: var(--color-accent-primary);
+}
+
+.blog-card--green:hover {
+  border-color: var(--color-accent-secondary);
+}
+
+.blog-card__banner {
+  position: relative;
+  height: 200px;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-2);
+  overflow: hidden;
+  background-color: var(--color-bg-elevated); /* visible briefly while the photo loads */
+}
+
+.blog-card__banner-image {
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.blog-card:hover .blog-card__banner-image {
+  transform: scale(1.08);
+}
+
+/* Bottom-anchored dark scrim so the tag stays legible over any photo, regardless of its own
+   colors/brightness. Plain neutral black — an earlier version tinted this blue/green per card,
+   which read as a stray color cast over the photo rather than a legibility aid. */
+.blog-card__banner-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 55%);
+}
+
+.blog-card__banner-tag {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--on-primary);
+}
+
+.blog-card__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  flex: 1;
+}
+
+.blog-card__meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.blog-card__meta-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+}
+
+.blog-card__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.blog-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  /* No excerpt to absorb the leftover space anymore — auto margin pushes this to the bottom of
+     the card regardless of how many lines the title wraps to, so it lines up row-to-row. */
+  margin-top: auto;
+  padding-top: var(--space-1);
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.blog-card__cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--duration-hover) ease;
+}
+
+.blog-card:hover .blog-card__cta svg {
+  transform: translateX(4px);
+}
+
+/* ---- Featured variant: bigger banner, used once at the top of the /blog index ---- */
+.blog-card--featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.blog-card--featured .blog-card__banner {
+  height: auto;
+}
+
+.blog-card--featured .blog-card__title {
+  font-size: var(--text-display-lg);
+}
+
+.blog-card--featured .blog-card__body {
+  padding: var(--space-5);
+  justify-content: center;
+}
+
+@media (max-width: 810px) {
+  .blog-card--featured {
+    grid-template-columns: 1fr;
+  }
+
+  .blog-card--featured .blog-card__banner {
+    height: 96px;
+  }
+
+  .blog-card--featured .blog-card__title {
+    font-size: var(--text-display-md);
+  }
+
+  .blog-card--featured .blog-card__body {
+    padding: var(--space-3);
+  }
+}
+
+/* ---- Mobile: 2-up grid (see BlogIndex.css/BlogArticle.css) ----
+   With no excerpt paragraph left, the banner gets most of each card's height so the photo actually
+   has room to breathe instead of being squeezed to a sliver above two lines of body copy. Grid
+   rows already stretch every card to the tallest one; clamping the title to 2 lines keeps that
+   difference small so a row still reads as even rather than lopsided. */
+@media (max-width: 810px) {
+  .blog-card__banner {
+    height: 120px;
+    padding: 10px 12px;
+  }
+
+  .blog-card__banner-tag {
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+  }
+
+  .blog-card__body {
+    padding: var(--space-2);
+    gap: 6px;
+  }
+
+  .blog-card__meta {
+    flex-wrap: wrap;
+    row-gap: 2px;
+    font-size: 11px;
+  }
+
+  .blog-card__title {
+    font-size: var(--text-body-lg);
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card__cta {
+    font-size: var(--text-caption);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card:hover {
+    transform: none;
+  }
+
+  .blog-card:hover .blog-card__cta svg {
+    transform: none;
+  }
+
+  .blog-card:hover .blog-card__banner-image {
+    transform: none;
+  }
+}

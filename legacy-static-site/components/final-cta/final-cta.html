@@ -1,0 +1,32 @@
+<!--
+  Dana AI — Final CTA Banner (design.md §5.13, site map item 14)
+
+  FLAG: this component did not exist anywhere in the project before now — confirmed by listing
+  components/ before starting this build. A later task's premise ("reuse the already-built final
+  CTA banner... same headline/body/CTA as the homepage's final CTA") assumed prior work that
+  doesn't exist. Building it fresh here, meant to be reused on the homepage too whenever that
+  section gets added there (it currently isn't wired into index.html).
+
+  Copy is grounded in already-established real content from this project (the "Get Dana AI" CTA
+  label used consistently in the navbar/hero, and the cashflow-score mechanic established since the
+  problem/solution section) — not new invented claims. Site map item 14 describes the *original*
+  homepage's final CTA as an App Store/Google Play download prompt, but no store links have been
+  confirmed as real anywhere in this project, so this reuses the same "Get Dana AI" action already
+  established elsewhere rather than fabricating app-store copy.
+
+  On this banner specifically, the primary CTA fill is INVERTED (white bg / --color-primary text)
+  because the banner's own background is --color-primary (dark green) — the default primary-button
+  fill would be invisible on it. This inversion was already documented in design.md §5.13/§9 before
+  this component existed; implementing it now.
+-->
+<section class="final-cta" id="final-cta" aria-label="Get Dana AI" data-reveal>
+  <div class="final-cta__glow" aria-hidden="true"></div>
+  <div class="final-cta__container">
+    <h2 class="final-cta__headline">Ready to take control of your finances?</h2>
+    <p class="final-cta__body">
+      Chat with Dana, build your cashflow score, and get matched with the right financial
+      products — all in one app.
+    </p>
+    <a href="#get-dana-ai" class="btn final-cta__cta">Get Dana AI</a>
+  </div>
+</section>

@@ -1,0 +1,191 @@
+/*
+  Dana AI — "Why Dana" section styles.
+  Spec traced to design.md:
+    §8 Site map  — item 4: "short, 2-3 lines, sets up why AI-driven finance matters," extended
+                   into a full Finorix-style eyebrow + headline + asymmetric card grid per the
+                   explicit redesign brief (see build notes). No new design tokens introduced —
+                   every color/radius/spacing/type value below is pulled from app/globals.css.
+    §5.3 Badge   — eyebrow pill reused verbatim (global .pill-badge).
+    §3 Typography— headline uses --text-display-lg ("Section H2"), solid --color-text-primary.
+                   Body uses --text-body-lg, --color-text-secondary — this design system's
+                   existing "muted body copy" token (a dark, AA-safe green, not literal gray;
+                   --color-text-muted is decoration-only per its own globals.css comment, so it's
+                   reserved here for icon strokes/dots, never for readable text).
+    §4 Spacing   — 120px/72px section rhythm; container matches every sibling section's own
+                   max-width:1280px/margin:auto pattern (Hero, FeatureGrid, Rewards, etc.) instead
+                   of the previous isolated 720px-centered block, so the content's left edge lines
+                   up with the navbar logo and every other section on the page.
+    §6 Motion    — scroll-triggered reveal via the shared [data-reveal] primitive; intro block and
+                   each card reveal with a staggered delay (80ms/card), same pattern as the trust
+                   bar / feature grid card grids.
+
+  ASYMMETRIC GRID — 6 columns at desktop: the two "why" cards spanning the reason to trust Dana
+  most (no credit history required, instant decisions) each take half the row (span 3); the three
+  supporting reasons below each take a third (span 2). Row height is grid-auto driven so every
+  card in a row matches its siblings' height automatically — no explicit height rule needed.
+
+  ICON FRAME — a dashed square with four corner dot markers (design-tool/blueprint framing) behind
+  each card's icon, per the redesign brief. Built from --color-border-subtle (frame) and
+  --color-text-muted (dots) — both neutral, existing tokens; no accent color appears anywhere in
+  this section, matching the brief's "strictly neutral/grayscale" requirement.
+*/
+
+.why-dana {
+  padding: var(--space-15) var(--gutter-desktop);
+  background-color: var(--color-bg-base);
+}
+
+.why-dana__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.why-dana__intro {
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  gap: var(--space-3);
+}
+
+.why-dana__headline {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+}
+
+.why-dana__line {
+  display: block;
+}
+
+.why-dana__body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-lg);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+  max-width: 560px;
+}
+
+.why-dana__grid {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--space-3);
+}
+
+.why-dana__item--lg {
+  grid-column: span 3;
+}
+
+.why-dana__item--sm {
+  grid-column: span 2;
+}
+
+.why-dana__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5) var(--space-4);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.why-dana__icon-frame {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  margin-bottom: var(--space-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px dashed var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+}
+
+.why-dana__icon-dot {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-text-muted);
+}
+
+.why-dana__icon-dot--tl { top: -2.5px; left: -2.5px; }
+.why-dana__icon-dot--tr { top: -2.5px; right: -2.5px; }
+.why-dana__icon-dot--bl { bottom: -2.5px; left: -2.5px; }
+.why-dana__icon-dot--br { bottom: -2.5px; right: -2.5px; }
+
+.why-dana__icon {
+  width: 28px;
+  height: 28px;
+}
+
+.why-dana__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-body-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+.why-dana__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Tablet: 2-column grid, cards keep equal size ---- */
+@media (max-width: 1200px) {
+  .why-dana__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .why-dana__item--lg,
+  .why-dana__item--sm {
+    grid-column: span 1;
+  }
+
+  /* 5 items in a 2-col grid leaves the last card orphaned half-width; span it full width so the
+     row doesn't end on a lopsided single column. */
+  .why-dana__item:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---- Mobile: single column, full width ---- */
+@media (max-width: 810px) {
+  .why-dana {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .why-dana__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+
+  .why-dana__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .why-dana__item--lg,
+  .why-dana__item--sm {
+    grid-column: 1 / -1;
+  }
+}

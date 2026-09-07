@@ -1,0 +1,214 @@
+/*
+  Dana AI — Feature Grid styles.
+  Spec traced to design.md:
+    §5.6 Feature Grid — 3-4 col card grid, icon (blue/dark-green, 24-32px) -> title
+                        (--text-display-md) -> description (--text-body-md, --color-text-secondary).
+                        Cards use --color-bg-elevated + --color-border-subtle + --shadow-card; on
+                        hover, lift + shadow-deepen (--shadow-card-hover, new token, see §9) — not
+                        border-glow, that's reserved for interactive controls (§4).
+    §5.3 Badge        — eyebrow pill reused verbatim (styles/badge.css), not redeclared.
+    §4 Spacing        — 120px/72px section rhythm, 24px grid gutters, --radius-md (16px, "standard
+                        cards").
+    §6 Motion         — scroll-triggered reveal via the shared [data-reveal] primitive, staggered
+                        80-120ms per card (same pattern as the trust bar's card grid).
+
+  .feature-grid__item (data-reveal, owns the scroll-reveal fade+translateY+stagger-delay) wraps
+  .feature-grid__card (owns the hover lift+shadow) as two separate elements — see the HTML header
+  comment for why: both would otherwise fight over the same `transform` transition on one element.
+*/
+
+.feature-grid {
+  padding: var(--space-15) var(--gutter-desktop);
+}
+
+.feature-grid__container {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+}
+
+.feature-grid__headline {
+  margin: var(--space-3) 0 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.42px;
+  color: var(--color-text-primary);
+  max-width: 640px;
+}
+
+.feature-grid__grid {
+  margin-top: var(--space-6);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+.feature-grid__item:nth-child(1) { transition-delay: 0ms; }
+.feature-grid__item:nth-child(2) { transition-delay: 100ms; }
+.feature-grid__item:nth-child(3) { transition-delay: 200ms; }
+.feature-grid__item:nth-child(4) { transition-delay: 300ms; }
+
+.feature-grid__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-2);
+  height: 100%;
+  padding: var(--space-5) var(--space-3);
+  background-color: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  transition: transform var(--duration-hover) ease, box-shadow var(--duration-hover) ease,
+    border-color var(--duration-hover) ease;
+}
+
+.feature-grid__card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.feature-grid__card--blue:hover {
+  border-color: var(--color-accent-primary);
+}
+
+.feature-grid__card--green:hover {
+  border-color: var(--color-accent-secondary);
+}
+
+.feature-grid__icon-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  transition: transform var(--duration-hover) ease, background-color var(--duration-hover) ease;
+}
+
+.feature-grid__icon-wrap--blue {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 14%, transparent);
+}
+
+.feature-grid__icon-wrap--green {
+  background-color: color-mix(in srgb, var(--color-accent-secondary) 14%, transparent);
+}
+
+.feature-grid__card:hover .feature-grid__icon-wrap {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.feature-grid__card--blue:hover .feature-grid__icon-wrap {
+  background-color: color-mix(in srgb, var(--color-accent-primary) 22%, transparent);
+}
+
+.feature-grid__card--green:hover .feature-grid__icon-wrap {
+  background-color: color-mix(in srgb, var(--color-accent-secondary) 22%, transparent);
+}
+
+.feature-grid__icon {
+  width: 28px;
+  height: 28px;
+  animation: feature-icon-float 3.6s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Stagger the idle float so four cards don't bob in lockstep */
+.feature-grid__item:nth-child(1) .feature-grid__icon { animation-delay: 0s; }
+.feature-grid__item:nth-child(2) .feature-grid__icon { animation-delay: 0.4s; }
+.feature-grid__item:nth-child(3) .feature-grid__icon { animation-delay: 0.8s; }
+.feature-grid__item:nth-child(4) .feature-grid__icon { animation-delay: 1.2s; }
+
+.feature-grid__card:hover .feature-grid__icon {
+  animation: feature-icon-pop 0.6s ease;
+}
+
+@keyframes feature-icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+@keyframes feature-icon-pop {
+  0% { transform: scale(1) rotate(0deg); }
+  35% { transform: scale(1.22) rotate(8deg); }
+  60% { transform: scale(0.96) rotate(-4deg); }
+  100% { transform: scale(1.08) rotate(0deg); }
+}
+
+.feature-grid__icon--blue {
+  color: var(--color-accent-primary);
+}
+
+.feature-grid__icon--green {
+  color: var(--color-accent-secondary);
+}
+
+.feature-grid__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-md);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.feature-grid__description {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  line-height: 1.38;
+  letter-spacing: -0.32px;
+  color: var(--color-text-secondary);
+}
+
+/* ---- Tablet: 2-column grid ----
+   4-col at tablet widths left only ~105px of text width per card (measured against an 811px
+   viewport) — the longer feature descriptions wrapped into ~10 cramped lines in a narrow card.
+   2-col gives each card ~280px, roomier than even the desktop column. See design.md §9. */
+@media (max-width: 1200px) {
+  .feature-grid__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---- Mobile ---- */
+@media (max-width: 810px) {
+  .feature-grid {
+    padding: var(--space-9) var(--gutter-mobile);
+  }
+
+  .feature-grid__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .feature-grid__headline {
+    font-size: var(--text-display-lg-mobile);
+    line-height: 1.05;
+  }
+}
+
+/* Reduced motion: keep the shadow-deepen (a style swap, not motion), drop the lift transform
+   and all icon motion (idle float, hover pop, hover rotate). */
+@media (prefers-reduced-motion: reduce) {
+  .feature-grid__card:hover {
+    transform: none;
+  }
+
+  .feature-grid__icon {
+    animation: none;
+  }
+
+  .feature-grid__card:hover .feature-grid__icon {
+    animation: none;
+  }
+
+  .feature-grid__card:hover .feature-grid__icon-wrap {
+    transform: none;
+  }
+}
