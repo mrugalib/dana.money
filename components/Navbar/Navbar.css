@@ -250,6 +250,89 @@
   flex-shrink: 0;
 }
 
+/* ---- "Light bulb" hover treatment (System Extension) ----
+   Modeled on the Framer "Light Bulb Button" community component: a small lit "bulb" dot sits
+   inline with the label, a soft blurred "glare" blob lives above the button at rest, and on
+   hover/focus the glare sweeps down through the button while its own glow brightens — like the
+   bulb switching on — alongside the label's existing .text-roll reveal (see globals.css).
+   Kept as an additive modifier class (`--bulb`) rather than baked into `.btn`/`.navbar__cta` so
+   it stays scoped to this one CTA. */
+.navbar__cta--bulb {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  gap: var(--space-2);
+}
+
+.navbar__cta-glare {
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  top: -140%;
+  height: 100%;
+  background-color: var(--color-surface-highlight);
+  border-radius: 999px;
+  filter: blur(18px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition:
+    opacity var(--duration-hover) var(--ease-out),
+    transform var(--duration-hover) var(--ease-out);
+}
+
+.navbar__cta-bulb {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-surface-highlight);
+  box-shadow: 0 0 6px 1px rgba(185, 232, 72, 0.7);
+  transition: box-shadow var(--duration-hover) var(--ease-out);
+}
+
+.navbar__cta--bulb .text-roll {
+  position: relative;
+  z-index: 1;
+}
+
+.navbar__cta--bulb:hover .navbar__cta-glare,
+.navbar__cta--bulb:focus-visible .navbar__cta-glare {
+  opacity: 0.55;
+  transform: translateY(220%);
+}
+
+.navbar__cta--bulb:hover .navbar__cta-bulb,
+.navbar__cta--bulb:focus-visible .navbar__cta-bulb {
+  box-shadow: 0 0 12px 3px rgba(185, 232, 72, 0.9);
+}
+
+/* Over a dark section the CTA already flips to a lime fill with dark text (see
+   `.navbar--on-dark .navbar__cta` above) — the bulb/glare need matching dark-on-lime colors so
+   they still read as a lit dot against a now-light button instead of vanishing into it. */
+.navbar--on-dark .navbar__cta-bulb {
+  background-color: var(--color-text-primary);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.35);
+}
+
+.navbar--on-dark .navbar__cta-glare {
+  background-color: var(--on-primary);
+}
+
+.navbar--on-dark .navbar__cta--bulb:hover .navbar__cta-bulb,
+.navbar--on-dark .navbar__cta--bulb:focus-visible .navbar__cta-bulb {
+  box-shadow: 0 0 12px 3px rgba(0, 0, 0, 0.5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar__cta-glare,
+  .navbar__cta-bulb {
+    transition-duration: 1ms;
+  }
+}
+
 /* ---- Hamburger (mobile only) ---- */
 .navbar__hamburger {
   display: none;

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import TextRoll from "@/components/shared/TextRoll";
 import "./Hero.css";
 
 /**
@@ -37,8 +38,8 @@ export default function Hero() {
           </h1>
 
           <div className="hero__actions">
-            <Link href="/#get-dana-ai" className="btn hero__cta-primary">Get Dana AI</Link>
-            <Link href="/#how-it-works" className="btn hero__cta-secondary">See how it works</Link>
+            <Link href="/#get-dana-ai" className="btn hero__cta-primary"><TextRoll>Get Dana AI</TextRoll></Link>
+            <Link href="/#how-it-works" className="btn hero__cta-secondary"><TextRoll>See how it works</TextRoll></Link>
           </div>
         </div>
 

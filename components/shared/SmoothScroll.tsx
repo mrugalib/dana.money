@@ -14,6 +14,13 @@ import { useEffect } from "react";
  *     hijacking touch scroll is where these DIY implementations usually go wrong.
  * Also steps aside for wheel events inside any nested scrollable element (e.g. the mobile nav's
  * overflow-y:auto menu) so that content still scrolls normally instead of fighting the page.
+ *
+ * Click-triggered jumps (hash links like the navbar logo's "/#hero", or any "/#section" link)
+ * bypass the wheel handler entirely — they move the page via native scrollIntoView(). If the
+ * easing loop above is still gliding toward a stale wheel target when that jump happens, its next
+ * animation frame calls window.scrollTo() back toward that stale target, snapping the page right
+ * back and making the click look like it did nothing. A capturing click listener cancels any
+ * in-flight glide before the click's own navigation runs, so the resulting scroll position sticks.
  */
 export default function SmoothScroll() {
   useEffect(() => {
@@ -80,14 +87,23 @@ export default function SmoothScroll() {
       target = Math.min(maxScroll(), target);
     }
 
+    function cancelGlide() {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      }
+    }
+
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("scroll", syncFromNativeScroll, { passive: true });
     window.addEventListener("resize", onResize);
+    window.addEventListener("click", cancelGlide, true);
 
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("scroll", syncFromNativeScroll);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("click", cancelGlide, true);
       if (rafId !== null) cancelAnimationFrame(rafId);
     };
   }, []);

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import TextRoll from "@/components/shared/TextRoll";
 import "./Navbar.css";
 
 /**
@@ -195,7 +196,7 @@ export default function Navbar() {
       data-navbar
     >
       <div className="navbar__container">
-        <Link href="/" className="navbar__logo" aria-label="Dana AI — home">
+        <Link href="/#hero" className="navbar__logo" aria-label="Dana AI — home">
           {isOverDark ? (
             <Image src="/assets/dana_logo.svg" width={120} height={45} alt="Dana AI" />
           ) : (
@@ -205,12 +206,12 @@ export default function Navbar() {
 
         <nav className="navbar__nav" aria-label="Primary">
           <ul className="navbar__links">
-            <li><Link href="/#features" className="navbar__link">Solutions</Link></li>
-            <li><Link href="/#how-it-works" className="navbar__link">How it works</Link></li>
-            <li><Link href="/#rewards" className="navbar__link">Learn and Earn</Link></li>
-            <li><Link href="/lab" className="navbar__link">Dana Labs</Link></li>
-            <li><Link href="/blog" className="navbar__link">Blog</Link></li>
-            <li><Link href="/pricing" className="navbar__link">Pricing</Link></li>
+            <li><Link href="/#features" className="navbar__link"><TextRoll>Solutions</TextRoll></Link></li>
+            <li><Link href="/#how-it-works" className="navbar__link"><TextRoll>How it works</TextRoll></Link></li>
+            <li><Link href="/#rewards" className="navbar__link"><TextRoll>Learn and Earn</TextRoll></Link></li>
+            <li><Link href="/lab" className="navbar__link"><TextRoll>Dana Labs</TextRoll></Link></li>
+            <li><Link href="/blog" className="navbar__link"><TextRoll>Blog</TextRoll></Link></li>
+            <li><Link href="/pricing" className="navbar__link"><TextRoll>Pricing</TextRoll></Link></li>
             <li className="navbar__dropdown" ref={dropdownRef}>
               <button
                 ref={dropdownTriggerRef}
@@ -222,7 +223,7 @@ export default function Navbar() {
                 aria-controls="about-menu"
                 onClick={() => setIsDropdownOpen((open) => !open)}
               >
-                About
+                <TextRoll>About</TextRoll>
                 <svg className="navbar__chevron" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true">
                   <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
@@ -241,7 +242,11 @@ export default function Navbar() {
           </ul>
         </nav>
 
-        <Link href="/#get-dana-ai" className="btn btn--primary navbar__cta">Get Dana AI</Link>
+        <Link href="/#get-dana-ai" className="btn btn--primary navbar__cta navbar__cta--bulb">
+          <span className="navbar__cta-glare" aria-hidden="true"></span>
+          <span className="navbar__cta-bulb" aria-hidden="true"></span>
+          <TextRoll>Get Dana AI</TextRoll>
+        </Link>
 
         <button
           ref={menuTriggerRef}

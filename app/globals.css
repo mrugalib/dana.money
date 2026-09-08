@@ -199,6 +199,52 @@ body {
 }
 
 /* =====================================================================================
+   Text roll hover primitive (components/shared/TextRoll.tsx) — used on navbar menu links
+   and the Hero CTA buttons. Two stacked copies of the label; the ancestor link/button's
+   hover or keyboard focus slides the visible copy up and out while the hidden duplicate
+   slides up into view underneath it.
+   ===================================================================================== */
+
+.text-roll {
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.text-roll__line {
+  display: block;
+  transition: transform var(--duration-hover) var(--ease-out);
+}
+
+.text-roll__line--out {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+}
+
+a:hover .text-roll__line--in,
+button:hover .text-roll__line--in,
+a:focus-visible .text-roll__line--in,
+button:focus-visible .text-roll__line--in {
+  transform: translateY(-100%);
+}
+
+a:hover .text-roll__line--out,
+button:hover .text-roll__line--out,
+a:focus-visible .text-roll__line--out,
+button:focus-visible .text-roll__line--out {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text-roll__line {
+    transition-duration: 1ms;
+  }
+}
+
+/* =====================================================================================
    Eyebrow / Badge Pill (design.md §5.3)
    ===================================================================================== */
 
